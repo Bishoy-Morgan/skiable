@@ -4,7 +4,6 @@ import plane from '@/public/icons/plane.svg'
 import location from '@/public/icons/location.svg'
 
 export interface Airport {
-    entityId: string;
     presentation: {
         title: string;
         subtitle: string;
@@ -12,6 +11,7 @@ export interface Airport {
     navigation: {
         relevantFlightParams: {
             skyId: string;
+            entityId: number
         },
         relevantHotelParams: {
             localizedName: string;
@@ -21,7 +21,7 @@ export interface Airport {
 
 interface AirportDropdownProps {
     airports: Airport[];
-    onSelectAirport: (airport: string) => void;
+    onSelectAirport: (airport: Airport) => void;
 }
 
 const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAirport }) => {
@@ -32,9 +32,9 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
             <div className="w-full p-2 shadow-2xl rounded-lg max-h-60 overflow-y-scroll">
                 {airports.map((item) => (
                     <div
-                        key={item.entityId}
+                        key={item?.navigation?.relevantFlightParams?.entityId}
                         className="mb-2 px-2 py-1 cursor-pointer"
-                        onClick={() => onSelectAirport(item?.presentation?.title)}
+                        onClick={() => onSelectAirport(item)}
                     >
                         <div className='w-full flex flex-col border-b border-sky-100 py-1'>
                             <div className="w-full text-[#373d43] flex items-center space-x-1.5">

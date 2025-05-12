@@ -10,9 +10,11 @@ import DateRangePicker from './ui/DateRangePicker';
 import Image from 'next/image';
 import arrow from '@/public/icons/dark-arrow.svg'
 import explore from '@/public/icons/explore.svg'
+import { useRouter } from 'next/navigation';
 
 
 const FlightSearch = () => {
+  const router = useRouter();
   const [travellerCounts, setTravellerCounts] = useState({
     adults: 1,
     children: 0,
@@ -25,6 +27,8 @@ const FlightSearch = () => {
   const [airports, setAirports] = useState<Airport[]>([]);
   const [whereFrom, setWhereFrom] = useState<string>('');
   const [whereTo, setWhereTo] = useState<string>('');
+  const [originFlight, setOriginFlight] = useState<{ originSkyId: string; originEntityId: number }>();
+  const [destinationFlight, setDestinationFlight] = useState<{ destinationSkyId: string; destinationEntityId: number }>();
   const [activeField, setActiveField] = useState<'from' | 'to' | null>(null);
   const [range, setRange] = useState<{ startDate: Date; endDate: Date } | null>(null);
   const [query, setQuery] = useState('');
@@ -71,28 +75,48 @@ const handleWhereTo = (e: React.ChangeEvent<HTMLInputElement>) => {
   setError('');
 };
 
-const handleAirportSelect = (airport: string) => {
+const handleAirportSelect = (airport: Airport) => {
   if (activeField === 'from') {
-    setWhereFrom(airport);
+    setOriginFlight({
+      originSkyId: airport?.navigation?.relevantFlightParams?.skyId,
+      originEntityId: airport?.navigation?.relevantFlightParams.entityId
+    })
+    setWhereFrom(airport?.presentation?.title);
   } else if (activeField === 'to') {
-    setWhereTo(airport);
+    setDestinationFlight({
+      destinationSkyId: airport?.navigation?.relevantFlightParams?.skyId,
+      destinationEntityId: airport?.navigation?.relevantFlightParams.entityId
+    })
+    setWhereTo(airport?.presentation?.title);
   }
   setQuery('');
   setAirports([]);
 };
 
 const handleSearch = () => {
-  console.log('Searching flights with the following data:');
-  console.log('From:', whereFrom);
-  console.log('To:', whereTo);
-  console.log('Date Range:', range);
-  console.log('Travellers:', travellerCounts);
-  console.log('Trip Type:', tripType);
-  console.log('Cabin Class:', cabinClass);
+  if (!originFlight || !destinationFlight || !range) {
+    setError('Please fill in all required fields.');
+    return;
+  }
 
-  // You can now use this data to make a search API request or navigate to a results page
-  // For example: router.push(`/search?from=${...}&to=${...}`);
+  const queryParams = new URLSearchParams({
+    originSkyId: originFlight.originSkyId,
+    destinationSkyId: destinationFlight.destinationSkyId,
+    originEntityId: originFlight.originEntityId.toString(),
+    destinationEntityId: destinationFlight.destinationEntityId.toString(),
+    cabinClass: cabinClass.toLowerCase(),
+    adults: travellerCounts.adults.toString(),
+    sortBy: 'best',
+    currency: 'USD',
+    market: 'en-US',
+    countryCode: 'US',
+    startDate: range.startDate.toISOString().split('T')[0],
+    endDate: range.endDate.toISOString().split('T')[0],
+  });
+
+  router.push(`/search-result?${queryParams.toString()}`);
 };
+
 
 
   return (
@@ -137,7 +161,7 @@ const handleSearch = () => {
           )}
         </div>
       </div>
-      <div className="w-full flex items-center gap-x-4 border-red-500 border ">
+      <div className="w-full flex items-center gap-x-4  ">
         {/* Where from? Airports or city  */}
         <div className='relative w-1/3 flex flex-col space-y-4 '>
           <Input

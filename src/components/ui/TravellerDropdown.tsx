@@ -44,6 +44,10 @@ const TravellerDropdown: React.FC<TravellerDropdownProps> = ({ travellerCounts, 
         onClick={() => setTravellersOpen(!travellersOpen)}
         className="py-1.5 px-4 flex items-center space-x-1.5 cursor-pointer hover:bg-white/30 rounded"
       >
+        <span className="mr-2">
+          {tempCounts.adults + tempCounts.children + tempCounts.infantsOnSeat + tempCounts.infantsOnLap} 
+        </span>
+
         <Image src={user} alt="User icon" width={22} height={22} />
         <Image src={arrow} alt="Arrow icon" width={22} height={22} />
       </div>
