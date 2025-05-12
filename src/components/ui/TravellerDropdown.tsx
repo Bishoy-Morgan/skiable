@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React, { useState } from 'react';
-import user from '@/public/icons/user.svg';
+import user from '@/public/icons/user1.svg';
 import arrow from '@/public/icons/arrow.svg';
 
 type TravellerCounts = {
@@ -42,9 +42,9 @@ const TravellerDropdown: React.FC<TravellerDropdownProps> = ({ travellerCounts, 
     <div className="relative">
       <div
         onClick={() => setTravellersOpen(!travellersOpen)}
-        className="py-2 px-4 flex items-center space-x-1.5 cursor-pointer hover:bg-white/30 rounded"
+        className="py-1.5 px-4 flex items-center space-x-1.5 cursor-pointer hover:bg-white/30 rounded"
       >
-        <Image src={user} alt="User icon" width={28} height={28} />
+        <Image src={user} alt="User icon" width={22} height={22} />
         <Image src={arrow} alt="Arrow icon" width={22} height={22} />
       </div>
 

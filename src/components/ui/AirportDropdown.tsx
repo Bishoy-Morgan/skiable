@@ -1,10 +1,22 @@
+import Image from 'next/image';
 import React from 'react';
+import plane from '@/public/icons/plane.svg'
+import location from '@/public/icons/location.svg'
 
-interface Airport {
+export interface Airport {
     entityId: string;
     presentation: {
         title: string;
+        subtitle: string;
     };
+    navigation: {
+        relevantFlightParams: {
+            skyId: string;
+        },
+        relevantHotelParams: {
+            localizedName: string;
+        }
+    }
 }
 
 interface AirportDropdownProps {
@@ -21,10 +33,43 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
                 {airports.map((item) => (
                     <div
                         key={item.entityId}
-                        className="mb-2 px-2 py-1 hover:bg-sky-100 cursor-pointer"
-                        onClick={() => onSelectAirport(item.presentation.title)}
+                        className="mb-2 px-2 py-1 cursor-pointer"
+                        onClick={() => onSelectAirport(item?.presentation?.title)}
                     >
-                        <p className="text-[#373d43]">{item.presentation.title}</p>
+                        <div className='w-full flex flex-col border-b border-sky-100 py-1'>
+                            <div className="w-full text-[#373d43] flex items-center space-x-1.5">
+                                <Image 
+                                src={location}
+                                alt='Plane'
+                                width={24}
+                                height={24}
+                                />
+                                <div className='flex flex-col space-y-0.5 '>
+                                    <span className='text-sm text-[#373d43]'>
+                                        {item?.navigation?.relevantHotelParams?.localizedName}
+                                    </span>
+                                    <span className='text-xs text-[#373d43]/50'>
+                                        City in {item?.presentation?.subtitle}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="w-full flex items-center space-x-1.5 py-1 pl-2 my-1 hover:bg-sky-100 rounded-lg ">
+                                <Image 
+                                src={plane}
+                                alt='Plane'
+                                width={33}
+                                height={33}
+                                />
+                                <div className='flex flex-col space-y-0.5 '>
+                                    <span className='text-[#373d43]'>
+                                    {item?.presentation?.title}
+                                    </span>
+                                    <span className='text-xs text-[#373d43]/50'>
+                                        {item?.navigation?.relevantFlightParams?.skyId}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
