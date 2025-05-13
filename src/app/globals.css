@@ -1,7 +1,9 @@
 @import "tailwindcss";
+@import 'leaflet/dist/leaflet.css';
+
 
 :root {
-   --background: #373d43;
+    --background: #373d43;
     --foreground: #f5ffff;
     --sky-blue: #a0dade;
 }
@@ -22,20 +24,19 @@
 } */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #076585;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #fff, #076585);  
+  background: linear-gradient(to top, #fff, #076585); 
   font-family: var(--font-poppins), sans-serif;
   max-width: 1920px;
   margin: 0 auto;
-}
-
-.bg-skyBlue {
-  background: var(--sky-blue);
+  color: #f5ffff;
 }
 
 .blue-container {
   width: 90%;
   margin: 0 auto;
-  background-color: var(--sky-blue);
-  border-radius: 1rem;
+  background-color: #f5ffff;
+  color: #076585;
+  /* background: #f5ffff; */
 }

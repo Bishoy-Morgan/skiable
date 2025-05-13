@@ -30,9 +30,9 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
         <div className={`relative w-36 ${className} `} ref={dropdownRef}>
             <div
                 onClick={() => setOpen((prev) => !prev)}
-                className="flex items-center justify-between px-4 py-2 hover:bg-white/30 rounded cursor-pointer"
+                className="flex items-center justify-between px-4 py-2 hover:bg-[#f5ffff]/30 rounded cursor-pointer"
             >
-                <span>{selected}</span>
+                <span className='text-[#f5ffff]'>{selected}</span>
                 <Image
                 src={arrow}
                 alt="arrow"
@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
             </div>
 
             {open && (
-                <ul className={`absolute mt-2 bg-white text-[#373d43] rounded-lg shadow-md z-10 ${widthClass ?? 'w-full'}`}>
+                <ul className={`absolute mt-2 bg-[#f5ffff] text-[#076585] rounded-lg shadow-md z-10 ${widthClass ?? 'w-full'}`}>
                 {options.map((option) => (
                     <li
                     key={option}

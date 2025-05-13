@@ -16,7 +16,7 @@ const Navbar = () => {
                     width={36}
                     height={36}
                     />
-                    <span className='text-2xl text-[#f5ffff] font-extrabold'>Ski<span className='text-[#a0dade]'>able</span></span>
+                    <span className='text-2xl text-[#FDC830] font-extrabold'>Ski<span className=''>able</span></span>
                 </div>
                 <div className='flex items-center space-x-12'>
                     <div className=''>

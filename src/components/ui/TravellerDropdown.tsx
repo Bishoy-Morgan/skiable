@@ -42,9 +42,9 @@ const TravellerDropdown: React.FC<TravellerDropdownProps> = ({ travellerCounts, 
     <div className="relative">
       <div
         onClick={() => setTravellersOpen(!travellersOpen)}
-        className="py-1.5 px-4 flex items-center space-x-1.5 cursor-pointer hover:bg-white/30 rounded"
+        className="py-1.5 px-4 flex items-center space-x-1.5 cursor-pointer hover:bg-[#f5ffff]/30 rounded"
       >
-        <span className="mr-2">
+        <span className="mr-2 text-[#f5ffff]">
           {tempCounts.adults + tempCounts.children + tempCounts.infantsOnSeat + tempCounts.infantsOnLap} 
         </span>
 
@@ -53,7 +53,7 @@ const TravellerDropdown: React.FC<TravellerDropdownProps> = ({ travellerCounts, 
       </div>
 
       {travellersOpen && (
-        <div className="absolute top-full left-0 w-80 mt-2 p-6 bg-white text-[#373d43] rounded-lg shadow-lg space-y-4 z-50 transition-all duration-300 ease-in-out">
+        <div className="absolute top-full left-0 w-80 mt-2 p-6 bg-[#f5ffff] text-[#076585] rounded-lg shadow-lg space-y-4 z-50 transition-all duration-300 ease-in-out">
           {[
             { label: 'Adults', key: 'adults' },
             { label: 'Children (2–11)', key: 'children' },
@@ -61,11 +61,11 @@ const TravellerDropdown: React.FC<TravellerDropdownProps> = ({ travellerCounts, 
             { label: 'Infants (on lap)', key: 'infantsOnLap' },
           ].map(({ label, key }) => (
             <div key={key} className="flex items-center justify-between">
-              <span className="text-base text-[#373d43]">{label}</span>
+              <span className="text-base text-[#076585]">{label}</span>
               <div className="flex items-center justify-between min-w-[6.5rem] max-w-28">
                 <button
                   onClick={() => updateTempCount(key as keyof TravellerCounts, -1)}
-                  className="px-3 py-1 rounded bg-[#373d43]/10"
+                  className="px-3 py-1 rounded bg-[#373d43]/5"
                 >
                   -
                 </button>
@@ -83,13 +83,13 @@ const TravellerDropdown: React.FC<TravellerDropdownProps> = ({ travellerCounts, 
           <div className="flex justify-end pt-4">
             <button
               onClick={cancelChanges}
-              className="px-4 text-[#373d43]/80 text-sm cursor-pointer"
+              className="px-4 text-[#076585]/80 text-sm cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={applyChanges}
-              className="px-4 text-sky-400 font-extrabold cursor-pointer"
+              className="px-4 text-[#076585] font-extrabold cursor-pointer"
             >
               Done
             </button>

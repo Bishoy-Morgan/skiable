@@ -26,12 +26,12 @@ const Input: React.FC<InputProps> = ({
 }) => {
     const isFrom = name === 'whereFrom';
     const icon = isFrom ? location : earth;
-    const iconSize = isFrom ? 22 : 20;
+    const iconSize = isFrom ? 30 : 28;
 
   // Icon classes based on value
     const iconClasses = value
         ? 'absolute top-1/2 -translate-y-1/2 left-3 opacity-100'
-        : 'absolute top-1/2 -translate-y-1/2 left-0 opacity-0 group-hover:left-3 group-hover:opacity-100 group-active:opacity-100 group-active:left-3 transition-all duration-300 ease-in-out';
+        : 'absolute top-1/2 -translate-y-1/2 left-0 opacity-0 group-hover:left-2 group-hover:opacity-100 group-active:opacity-100 group-active:left-3 transition-all duration-300 ease-in-out';
 
     return (
         <div className={`relative group w-full mt-0 mb-0 max-w-96 ${className}`}>
@@ -42,8 +42,8 @@ const Input: React.FC<InputProps> = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                className={`w-full px-4 py-3 pl-10 border border-transparent rounded-lg outline-none bg-[#f5ffff] shadow-lg placeholder:text-[#373d43]/50 text-[#373d43] transition duration-150 ease-in-out 
-                ${error ? 'border-red-500' : ''} focus:border-sky-500`}
+                className={`w-full px-4 py-3 pl-10 border border-transparent rounded-lg outline-none bg-[#f5ffff] shadow-lg placeholder:text-[#076585]/70 text-[#076585] transition duration-150 ease-in-out 
+                ${error ? 'border-red-500' : ''} focus:-translate-y-0.5 `}
             />
             <Image
                 src={icon}

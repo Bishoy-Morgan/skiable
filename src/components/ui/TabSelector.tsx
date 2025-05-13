@@ -9,13 +9,13 @@ type TabSelectorProps = {
     const tabs: ('flight' | 'hotels' | 'car')[] = ['flight', 'hotels', 'car'];
 
     return (
-        <ul className="flex text-sky-400 bg-white text-center rounded-t-2xl   ">
+        <ul className="flex text-[#076585] text-center rounded-t-2xl   ">
             {tabs.map((type) => (
                 <li key={type} className="w-1/3">
                     <button
                         onClick={() => onSelect(type)}
-                        className={`w-full py-4 hover:bg-white/20 tracking-wider text-lg ${
-                        activeTab === type ? 'bg-skyBlue rounded-t-2xl text-white font-medium  ' : ''
+                        className={`w-full py-4 text-lg ${
+                        activeTab === type ? 'font-medium text-xl bg-[#076585] rounded-t-lg text-[#f5ffff] ' : ''
                         } `}
                     >
                         {type.charAt(0).toUpperCase() + type.slice(1)}

@@ -141,8 +141,8 @@ const handleSearch = () => {
         </div>
         <div className='w-1/2 flex items-center justify-end'>
           {range && (
-            <div className="flex items-center space-x-1.5 text-sm text-[#373d43]/70">
-                <span className='text-[#373d43]'>
+            <div className="flex items-center space-x-1.5 text-sm text-[#f5ffff]">
+                <span className='text-[#f5ffff]'>
                   You selected:
                 </span>
                 <span className='ml-2'>
@@ -210,7 +210,7 @@ const handleSearch = () => {
             setError('');
             handleSearch();
           }}
-          className="flex items-center gap-2 px-8 py-2 border border-[#f5ffff] bg-transparent "
+          className="flex items-center gap-2 px-8 py-3 border border-[#f5ffff] bg-transparent text-[#f5ffff] font-medium "
         >
           <Image src={explore} alt='Explore' width={24} height={24} />
           <span>

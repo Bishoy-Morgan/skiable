@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import plane from '@/public/icons/plane.svg'
-import location from '@/public/icons/location.svg'
+import city from '@/public/icons/city.svg'
 
 export interface Airport {
     presentation: {
@@ -37,34 +37,34 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
                         onClick={() => onSelectAirport(item)}
                     >
                         <div className='w-full flex flex-col border-b border-sky-100 py-1'>
-                            <div className="w-full text-[#373d43] flex items-center space-x-1.5">
+                            <div className="w-full text-[#076585] flex items-center space-x-1.5">
                                 <Image 
-                                src={location}
+                                src={city}
                                 alt='Plane'
                                 width={24}
                                 height={24}
                                 />
                                 <div className='flex flex-col space-y-0.5 '>
-                                    <span className='text-sm text-[#373d43]'>
+                                    <span className='text-sm text-[#076585]'>
                                         {item?.navigation?.relevantHotelParams?.localizedName}
                                     </span>
-                                    <span className='text-xs text-[#373d43]/50'>
+                                    <span className='text-xs text-[#076585]/50'>
                                         City in {item?.presentation?.subtitle}
                                     </span>
                                 </div>
                             </div>
-                            <div className="w-full flex items-center space-x-1.5 py-1 pl-2 my-1 hover:bg-sky-100 rounded-lg ">
+                            <div className="w-full flex items-center space-x-3 py-1 pl-2 my-1 hover:bg-sky-100 rounded-lg ">
                                 <Image 
                                 src={plane}
                                 alt='Plane'
-                                width={33}
-                                height={33}
+                                width={28}
+                                height={28}
                                 />
                                 <div className='flex flex-col space-y-0.5 '>
-                                    <span className='text-[#373d43]'>
+                                    <span className='text-[#076585]'>
                                     {item?.presentation?.title}
                                     </span>
-                                    <span className='text-xs text-[#373d43]/50'>
+                                    <span className='text-xs text-[#076585]/50'>
                                         {item?.navigation?.relevantFlightParams?.skyId}
                                     </span>
                                 </div>

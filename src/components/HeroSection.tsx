@@ -1,12 +1,12 @@
-import Image from 'next/image'
+// import Image from 'next/image'
 import React from 'react'
-import heroImage from '@/public/images/hero6.jpg'
+// import heroImage from '@/public/images/hero6.jpg'
 import Navbar from './Navbar'
 
 const HeroSection: React.FC = () => {
     return (
         <section className='relative w-full h-dvh flex items-center justify-center '>
-            <div className='absolute top-0 left-0 w-full h-full -z-0'>
+            {/* <div className='absolute top-0 left-0 w-full h-full -z-0'>
                 <Image 
                 src={heroImage}
                 alt='Flight'
@@ -15,7 +15,7 @@ const HeroSection: React.FC = () => {
                 priority
                 quality={100}
                 />
-            </div>
+            </div> */}
             <Navbar />
             {/* <div className='absolute left-0 top-0 z-10 w-1/3 h-full bg-skyBlue drop-shadow-2xl ' /> */}
             <div className='relative z-20 w-[90%] flex flex-col justify-start'>

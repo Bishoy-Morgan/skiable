@@ -78,7 +78,7 @@ export default function DateRangePicker({ onSelectRange }: Props) {
           className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm 
             ${
               isSelected
-                ? "bg-sky-500 text-white"
+                ? "bg-[#076585] text-[#f5ffff]"
                 : isInRange
                 ? "bg-sky-200 text-sky-500 rounded-sm"
                 : "hover:bg-sky-100 text-[#373d43]"
@@ -107,14 +107,14 @@ export default function DateRangePicker({ onSelectRange }: Props) {
     <div className="relative group w-full my-0 max-w-96" ref={pickerRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center gap-1 px-4 py-3 border border-transparent rounded-lg outline-none bg-[#f5ffff] shadow-lg text-[#373d43] transition duration-150 ease-in-out focus:text-[#373d43]"
+        className="flex w-full items-center gap-1 px-4 py-3 border border-transparent rounded-lg outline-none bg-[#f5ffff] shadow-lg text-[#076585] transition duration-150 ease-in-out focus:-translate-y-0.5"
       >
         <Image
           src={calendar}
           alt="Calendar"
-          width={20}
-          height={20}
-          className={`absolute left-3 transition-all duration-300 ease-in-out
+          width={26}
+          height={26}
+          className={`absolute left-2 transition-all duration-300 ease-in-out
             ${getFormattedDate() ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 group-hover:translate-x-0 group-hover:opacity-100'}`}
         />
         <span className="text-[#373d43]/50 flex-1 text-left pl-6">
