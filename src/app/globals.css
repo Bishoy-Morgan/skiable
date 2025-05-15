@@ -24,9 +24,7 @@
 } */
 
 body {
-  background: #076585;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #fff, #076585);  
-  background: linear-gradient(to top, #fff, #076585); 
+  background-color: #050801;
   font-family: var(--font-poppins), sans-serif;
   max-width: 1920px;
   margin: 0 auto;
@@ -36,7 +34,8 @@ body {
 .blue-container {
   width: 90%;
   margin: 0 auto;
-  background-color: #f5ffff;
-  color: #076585;
+
+  /* background-color: #050801; */
+  /* color: #076585; */
   /* background: #f5ffff; */
 }

@@ -1,29 +1,38 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type TabSelectorProps = {
-    activeTab: 'flight' | 'hotels' | 'car';
-        onSelect: (tab: 'flight' | 'hotels' | 'car') => void;
-    };
+  activeTab: 'flight' | 'hotels' | 'car';
+  onSelect: (tab: 'flight' | 'hotels' | 'car') => void;
+};
 
-    const TabSelector: React.FC<TabSelectorProps> = ({ activeTab, onSelect }) => {
-    const tabs: ('flight' | 'hotels' | 'car')[] = ['flight', 'hotels', 'car'];
+const TabSelector: React.FC<TabSelectorProps> = ({ activeTab, onSelect }) => {
+  const tabs: ('flight' | 'hotels' | 'car')[] = ['flight', 'hotels', 'car'];
 
-    return (
-        <ul className="flex text-[#076585] text-center rounded-t-2xl   ">
-            {tabs.map((type) => (
-                <li key={type} className="w-1/3">
-                    <button
-                        onClick={() => onSelect(type)}
-                        className={`w-full py-4 text-lg ${
-                        activeTab === type ? 'font-medium text-xl bg-[#076585] rounded-t-lg text-[#f5ffff] ' : ''
-                        } `}
-                    >
-                        {type.charAt(0).toUpperCase() + type.slice(1)}
-                    </button>
-                </li>
-            ))}
-        </ul>
-    );
+  return (
+    <ul className="flex text-[#f5ffff] text-center rounded-t-xs relative overflow-hidden">
+      {tabs.map((type) => (
+        <li key={type} className="w-1/3 relative z-10">
+          <button
+            onClick={() => onSelect(type)}
+            className={`w-full py-4 text-lg font-bold relative z-20 ${
+              activeTab === type ? 'font-extrabold text-xl text-[#050801]' : ''
+            }`}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+          {/* Animate the background highlight */}
+          {activeTab === type && (
+            <motion.div
+              layoutId="tabBackground"
+              className="absolute inset-0 bg-[#FDC830] rounded-t-xs z-10"
+              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+            />
+          )}
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default TabSelector;

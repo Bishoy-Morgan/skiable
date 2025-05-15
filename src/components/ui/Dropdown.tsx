@@ -27,12 +27,14 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
     }, []);
 
     return (
-        <div className={`relative w-36 ${className} `} ref={dropdownRef}>
+        <div className={`relative min-w-36 max-w-60 ${className} `} ref={dropdownRef}>
             <div
                 onClick={() => setOpen((prev) => !prev)}
-                className="flex items-center justify-between px-4 py-2 hover:bg-[#f5ffff]/30 rounded cursor-pointer"
+                className={`flex items-center justify-between px-4 py-2 border border-transparent hover:border-[#050801] hover:bg-[#050801]/5 rounded-xs cursor-pointer transition-all duration-200 ease-in-out ${
+                    open && '!border-[#050801] bg-[#050801]/5'
+                }`}
             >
-                <span className='text-[#f5ffff]'>{selected}</span>
+                <span className='text-[#050801] font-medium'>{selected}</span>
                 <Image
                 src={arrow}
                 alt="arrow"
@@ -43,21 +45,21 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
             </div>
 
             {open && (
-                <ul className={`absolute mt-2 bg-[#f5ffff] text-[#076585] rounded-lg shadow-md z-10 ${widthClass ?? 'w-full'}`}>
-                {options.map((option) => (
-                    <li
-                    key={option}
-                    onClick={() => {
-                        onChange(option);
-                        setOpen(false);
-                    }}
-                    className={`px-4 py-2 cursor-pointer hover:bg-sky-100 rounded-lg ${
-                        option === selected ? 'bg-sky-100 font-semibold' : ''
-                    }`}
-                    >
-                    {option}
-                    </li>
-                ))}
+                <ul className={`absolute mt-2 bg-[#050801] text-[#FDC830] rounded-xs shadow-sm z-10 p-1.5 ${widthClass ?? 'w-full'}`}>
+                    {options.map((option) => (
+                        <li
+                        key={option}
+                        onClick={() => {
+                            onChange(option);
+                            setOpen(false);
+                        }}
+                        className={`px-4 py-2 cursor-pointer bg-[#050801]  ${
+                            option === selected ? 'font-semibold text-[#050801] bg-[#FDC830] ' : 'hover:bg-[#FDC830]/5 hover:pl-6 transition-all duration-200 ease-in-out'
+                        } `}
+                        >
+                            {option}
+                        </li>
+                    ))}
                 </ul>
             )}
         </div>

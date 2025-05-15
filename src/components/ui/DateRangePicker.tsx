@@ -75,13 +75,13 @@ export default function DateRangePicker({ onSelectRange }: Props) {
         <button
           key={d}
           onClick={() => handleDateClick(new Date(year, month, d))}
-          className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm 
+          className={`w-10 h-10 flex items-center justify-center text-sm text-[#050801]/70 
             ${
               isSelected
-                ? "bg-[#076585] text-[#f5ffff]"
+                ? "bg-[#FDC830] text-[#050801] border border-[#050801]"
                 : isInRange
-                ? "bg-sky-200 text-sky-500 rounded-sm"
-                : "hover:bg-sky-100 text-[#373d43]"
+                ? "bg-[#FDC830] text-[#050801] "
+                : "hover:bg-[#FDC830] text-[#050801]"
             }`}
         >
           {d}
@@ -104,44 +104,44 @@ export default function DateRangePicker({ onSelectRange }: Props) {
   };
 
   return (
-    <div className="relative group w-full my-0 max-w-96" ref={pickerRef}>
+    <div className="relative group w-full my-0 max-w-96 2xl:max-w-[30rem]" ref={pickerRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center gap-1 px-4 py-3 border border-transparent rounded-lg outline-none bg-[#f5ffff] shadow-lg text-[#076585] transition duration-150 ease-in-out focus:-translate-y-0.5"
+        className="flex w-full items-center gap-1 px-4 py-4 2xl:py-5 border border-transparent rounded-xs outline-none bg-[#f5ffff]/90 text-[#050801]/70 transition duration-150 ease-in-out focus:border-[#050801] focus:-translate-y-0.5 2xl:placeholder:text-xl 2xl:text-xl"
       >
         <Image
           src={calendar}
           alt="Calendar"
           width={26}
           height={26}
-          className={`absolute left-2 transition-all duration-300 ease-in-out
+          className={`absolute left-2 transition-all duration-300 ease-in-out w-8 h-8 2xl:w-10 2xl:h-10
             ${getFormattedDate() ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 group-hover:translate-x-0 group-hover:opacity-100'}`}
         />
-        <span className="text-[#373d43]/50 flex-1 text-left pl-6">
+        <span className="text-[#050801]/70 flex-1 text-left pl-7 2xl:pl-9">
           {getFormattedDate() || "Pick a period"}
         </span>
       </button>
 
       {open && (
-        <div className="absolute z-50 mt-2 p-4 rounded-md border bg-[#f5ffff] shadow-lg w-[280px]">
+        <div className="absolute z-50 mt-2 p-4 rounded-xs border bg-[#f5ffff] shadow-lg w-[280px]">
           <div className="flex items-center justify-between mb-2">
             <button
               onClick={handlePrevMonth}
-              className="text-xs font-semibold text-[#373d43] hover:bg-sky-100 p-2 rounded-md"
+              className="text-xs font-semibold text-[#050801] hover:bg-[#FDC830] p-2 rounded-md"
             >
               {"<"}
             </button>
-            <span className="text-xs font-semibold text-[#373d43]">
+            <span className="text-xs font-semibold text-[#050801]">
               {format(currentMonth, "MMM yyyy")}
             </span>
             <button
               onClick={handleNextMonth}
-              className="text-xs font-semibold text-[#373d43] hover:bg-sky-100 p-2 rounded-md"
+              className="text-xs font-semibold text-[#050801] hover:bg-[#FDC830] p-2 rounded-md"
             >
               {">"}
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-1 text-xs text-[#373d43] mb-2">
+          <div className="grid grid-cols-7 gap-1 text-xs text-[#050801] mb-2">
             {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
               <div key={day} className="text-center font-semibold ">
                 {day}

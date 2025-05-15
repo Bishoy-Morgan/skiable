@@ -8,7 +8,7 @@ import AirportDropdown from './ui/AirportDropdown';
 import { Airport } from './ui/AirportDropdown';
 import DateRangePicker from './ui/DateRangePicker';
 import Image from 'next/image';
-import arrow from '@/public/icons/dark-arrow.svg'
+import arrow from '@/public/icons/arrow.svg'
 import explore from '@/public/icons/explore.svg'
 import { useRouter } from 'next/navigation';
 
@@ -34,30 +34,30 @@ const FlightSearch = () => {
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (!query.trim()) return; // avoid empty queries
+  // useEffect(() => {
+  //   if (!query.trim()) return; // avoid empty queries
 
-    const fetchData = async () => {
-      const url = `https://sky-scrapper.p.rapidapi.com/api/v1/flights/searchAirport?query=${query}&locale=en-US`;
-      const options = {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-key': process.env.NEXT_PUBLIC_RAPIDAPI_KEY!,
-          'x-rapidapi-host': 'sky-scrapper.p.rapidapi.com',
-        },
-      };
+  //   const fetchData = async () => {
+  //     const url = `https://sky-scrapper.p.rapidapi.com/api/v1/flights/searchAirport?query=${query}&locale=en-US`;
+  //     const options = {
+  //       method: 'GET',
+  //       headers: {
+  //         'x-rapidapi-key': process.env.NEXT_PUBLIC_RAPIDAPI_KEY!,
+  //         'x-rapidapi-host': 'sky-scrapper.p.rapidapi.com',
+  //       },
+  //     };
 
-      try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        setAirports(result.data);
-      } catch (error) {
-        console.error('Error fetching flight data:', error);
-      }
-    };
+  //     try {
+  //       const response = await fetch(url, options);
+  //       const result = await response.json();
+  //       setAirports(result.data);
+  //     } catch (error) {
+  //       console.error('Error fetching flight data:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [query]);
+  //   fetchData();
+  // }, [query]);
 
 const handleWhereFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = e.target.value;
@@ -141,8 +141,8 @@ const handleSearch = () => {
         </div>
         <div className='w-1/2 flex items-center justify-end'>
           {range && (
-            <div className="flex items-center space-x-1.5 text-sm text-[#f5ffff]">
-                <span className='text-[#f5ffff]'>
+            <div className="flex items-center space-x-1.5 text-sm text-[#050801]">
+                <span className='text-[#050801]'>
                   You selected:
                 </span>
                 <span className='ml-2'>
@@ -210,7 +210,7 @@ const handleSearch = () => {
             setError('');
             handleSearch();
           }}
-          className="flex items-center gap-2 px-8 py-3 border border-[#f5ffff] bg-transparent text-[#f5ffff] font-medium "
+          className="flex items-center gap-2 px-8 py-3 bg-[#050801] text-[#FDC830] rounded-xs font-bold text-lg "
         >
           <Image src={explore} alt='Explore' width={24} height={24} />
           <span>

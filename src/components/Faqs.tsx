@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image'; // Importing Image from next/image
-import arrow from '@/public/icons/arrow.svg'; // Arrow icon for open/close
+import Image from 'next/image';
+import arrow from '@/public/icons/yellow-arrow.svg'; 
 
 type FAQ = {
   question: string;
@@ -46,13 +46,13 @@ const Faqs: React.FC = () => {
   };
 
   return (
-    <section className="w-[90%] mx-auto py-12">
-      <h2 className="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+    <section className="w-[90%] 2xl:w-4/5 mx-auto py-12">
+      <h2 className="text-5xl font-bold text-center mb-10 text-[#f5ffff]">Frequently Asked Questions</h2>
       <div className="space-y-6">
         {faqs.map((faq, index) => (
           <motion.div
             key={index}
-            className="p-5 border rounded-lg shadow-sm hover:shadow-md transition duration-300"
+            className="border border-[#FDC830] bg-[#FDC830]/5 p-5 rounded-xs transition duration-300  "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -70,15 +70,15 @@ const Faqs: React.FC = () => {
                 <Image
                   src={arrow}
                   alt="Arrow"
-                  width={20} // Width of the arrow
-                  height={20} // Height of the arrow
-                  className="text-xl" // Optional styling
+                  width={26} 
+                  height={26} 
+                  className="text-xl"
                 />
               </motion.div>
             </div>
             {openIndex === index && (
               <motion.div
-                className="text-gray-600"
+                className="text-[#FDC830] mt-4"
                 initial={{ height: 0 }}
                 animate={{ height: 'auto' }}
                 exit={{ height: 0 }}
