@@ -107,7 +107,7 @@ export default function DateRangePicker({ onSelectRange }: Props) {
     <div className="relative group w-full my-0 max-w-96 2xl:max-w-[30rem]" ref={pickerRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center gap-1 px-4 py-4 2xl:py-5 border border-transparent rounded-xs outline-none bg-[#f5ffff]/90 text-[#050801]/70 transition duration-150 ease-in-out focus:border-[#050801] focus:-translate-y-0.5 2xl:placeholder:text-xl 2xl:text-xl"
+        className="flex w-full items-center gap-1 px-4 py-4 2xl:py-5 border border-transparent rounded-xs outline-none bg-[#fffdf5] text-[#050801]/70 transition duration-150 ease-in-out focus:border-[#050801] focus:-translate-y-0.5 2xl:placeholder:text-xl 2xl:text-xl"
       >
         <Image
           src={calendar}
@@ -123,7 +123,7 @@ export default function DateRangePicker({ onSelectRange }: Props) {
       </button>
 
       {open && (
-        <div className="absolute z-50 mt-2 p-4 rounded-xs border bg-[#f5ffff] shadow-lg w-[280px]">
+        <div className="absolute z-50 mt-2 p-4 rounded-xs border bg-[#fffdf5] shadow-lg w-[280px]">
           <div className="flex items-center justify-between mb-2">
             <button
               onClick={handlePrevMonth}

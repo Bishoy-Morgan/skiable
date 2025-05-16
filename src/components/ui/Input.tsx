@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                className={`w-full px-4 py-4 2xl:py-5 pl-11 2xl:pl-12 border border-transparent outline-none bg-[#f5ffff]/90 rounded-xs placeholder:text-[#050801]/70 text-[#050801] 2xl:placeholder:text-xl 2xl:text-xl transition duration-150 ease-in-out focus:border-[#050801] 
+                className={`w-full px-4 py-4 2xl:py-5 pl-11 2xl:pl-12 border border-transparent outline-none bg-[#fffdf5] rounded-xs placeholder:text-[#050801]/70 text-[#050801] 2xl:placeholder:text-xl 2xl:text-xl transition duration-150 ease-in-out focus:border-[#050801] focus:bg-[#fffdf5] active:bg-[#fffdf5]
                 ${error ? 'border-red-500' : ''} focus:-translate-y-0.5 `}
             />
             <Image

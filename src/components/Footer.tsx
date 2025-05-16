@@ -6,8 +6,8 @@ const Footer = () => {
       <div className="w-full flex flex-col items-center justify-center text-center">
         <p>&copy; {new Date().getFullYear()} Skiable. All rights reserved.</p>
         <div className="mt-4">
-          <a href="#" className="text-sm text-[#f5ffff] hover:text-[#FDC830] mx-2">Privacy Policy</a>
-          <a href="#" className="text-sm text-[#f5ffff] hover:text-[#FDC830] mx-2">Terms of Service</a>
+          <a href="#" className="text-sm text-[#fffdf5] hover:text-[#FDC830] mx-2">Privacy Policy</a>
+          <a href="#" className="text-sm text-[#fffdf5] hover:text-[#FDC830] mx-2">Terms of Service</a>
         </div>
       </div>
     </footer>

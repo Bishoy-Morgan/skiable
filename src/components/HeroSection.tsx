@@ -19,7 +19,7 @@ const HeroSection: React.FC = () => {
             <Navbar />
             {/* <div className='absolute left-0 top-0 z-10 w-1/3 h-full bg-skyBlue drop-shadow-2xl ' /> */}
             <div className='relative z-20 w-[90%] 2xl:w-4/5 flex flex-col justify-start'>
-                <h1 className='text-9xl font-extrabold uppercase max-w-4xl'>Take to <br/> the
+                <h1 className='text-9xl font-extrabold uppercase max-w-4xl text-[#fffdf5]'>Take to <br/> the
                     <span className='text-[#FDC830]'>
                         &nbsp;Skies
                     </span>

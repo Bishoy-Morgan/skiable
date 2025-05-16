@@ -10,7 +10,7 @@ const TabSelector: React.FC<TabSelectorProps> = ({ activeTab, onSelect }) => {
   const tabs: ('flight' | 'hotels' | 'car')[] = ['flight', 'hotels', 'car'];
 
   return (
-    <ul className="flex text-[#f5ffff] text-center rounded-t-xs relative overflow-hidden">
+    <ul className="flex text-[#fffdf5] text-center rounded-t-xs relative overflow-hidden">
       {tabs.map((type) => (
         <li key={type} className="w-1/3 relative z-10">
           <button

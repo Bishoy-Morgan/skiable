@@ -11,9 +11,9 @@ const center: LatLngExpression = [51.505, -0.09];
 
 const MapSection = () => {
   return (
-    <section className='relative w-full flex flex-col items-center my-20 '>
+    <section className='relative w-full flex flex-col items-center my-20 bg-transparent '>
       <div className='w-[90%] 2xl:w-4/5 rounded-xs'>
-        <h1 className='text-[#f5ffff] text-5xl font-bold mb-10 '>
+        <h1 className='text-[#fffdf5] text-5xl font-bold mb-10 '>
           Find cheap flights from United States to anywhere
         </h1>
         <MapContainer

@@ -1,11 +1,12 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '@/public/icons/logo.svg'
-import darkTheme from '@/public/icons/dark-theme.svg'
-import Button from './ui/Button'
+import darkTheme from '@/public/icons/dark.svg'
+import lightTheme from '@/public/icons/light.svg'
 
 const Navbar = () => {
-    // const [theme, setTheme] = useState<boolean>(false)
+    const [theme, setTheme] = useState<boolean>(true)
+
     return (
         <nav className='absolute top-0 left-0 w-full h-16 flex justify-center items-center'>
             <div className='w-[90%] 2xl:w-4/5 flex items-center justify-between '>
@@ -24,10 +25,18 @@ const Navbar = () => {
                 <div className='flex items-center space-x-12'>
                     <div className=''>
                         <Image 
+                        src={lightTheme}
+                        alt=''
+                        width={28}
+                        height={28}
+                        className={`${theme ? 'block' : 'hidden'}`}
+                        />
+                        <Image 
                         src={darkTheme}
                         alt=''
-                        width={20}
-                        height={20}
+                        width={28}
+                        height={28}
+                        className={`${theme ? 'hidden' : 'block'}`}
                         />
                     </div>
                     <button className='bg-transparent text-[#FDC830] px-6 py-2 border border-[#FDC830] rounded-xs font-medium hover:bg-[#050801] transition-all duration-300 ease-in-out'>

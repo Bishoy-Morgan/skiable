@@ -47,7 +47,7 @@ const Faqs: React.FC = () => {
 
   return (
     <section className="w-[90%] 2xl:w-4/5 mx-auto py-12">
-      <h2 className="text-5xl font-bold text-center mb-10 text-[#f5ffff]">Frequently Asked Questions</h2>
+      <h2 className="text-5xl font-bold text-center mb-10 text-[#fffdf5]">Frequently Asked Questions</h2>
       <div className="space-y-6">
         {faqs.map((faq, index) => (
           <motion.div

@@ -17,7 +17,7 @@ const ToolsSections = () => {
                         <div className="bg-[#FDC830] px-6 py-8 rounded-lg flex items-start gap-x-8 ">
                             <Image src={day} alt='Day to fly' width={40} height={40} />
                             <div>
-                                <h2 className="text-lg font-semibold text-[#f5ffff] mb-4">
+                                <h2 className="text-lg font-semibold text-[#fffdf5] mb-4">
                                     Find the cheapest days to fly
                                 </h2>
                                 <p className="text-[#050801]">
@@ -29,7 +29,7 @@ const ToolsSections = () => {
                         <div className="bg-[#FDC830] px-6 py-8 rounded-lg flex items-start gap-x-8 ">
                             <Image src={insights} alt='Day to fly' width={40} height={40} />
                             <div>
-                                <h2 className="text-lg font-semibold text-[#f5ffff] mb-4">
+                                <h2 className="text-lg font-semibold text-[#fffdf5] mb-4">
                                     See the whole picture with price insights
                                 </h2>
                                 <p className="text-[#050801]">
@@ -41,7 +41,7 @@ const ToolsSections = () => {
                         <div className="bg-[#FDC830] px-6 py-8 rounded-lg flex items-start gap-x-8 ">
                             <Image src={ticket} alt='Day to fly' width={40} height={40} />
                             <div>
-                                <h2 className="text-lg font-semibold text-[#f5ffff] mb-4">
+                                <h2 className="text-lg font-semibold text-[#fffdf5] mb-4">
                                     Track prices for a trip
                                 </h2>
                                 <p className="text-[#050801]">
@@ -55,7 +55,7 @@ const ToolsSections = () => {
                         <h2 className="text-2xl font-semibold text-[#FDC830] mb-4">
                             Insightful tools help you choose your trip dates
                         </h2>
-                        <p className="text-[#f5ffff]">
+                        <p className="text-[#fffdf5]">
                             trip. Then, play around with the <span className="font-bold">Date grid</span> and <span className="font-bold">Price graph</span> options on the Search page to find the cheapest days to get to your destination – and back again for round trips.
                         </p>
                     </div>

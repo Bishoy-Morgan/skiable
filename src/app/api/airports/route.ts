@@ -1,33 +1,49 @@
-// app/api/airports/route.ts
+import type { Filter, Document } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/src/lib/mongodb";
 
 export async function GET(req: NextRequest) {
   try {
     const client = await clientPromise;
-    const db = client.db("skiable"); // replace with your actual DB name
+    const db = client.db("skiable");
     const url = new URL(req.url);
 
-    // Get query parameters
-    const country = url.searchParams.get("country"); // e.g. "US"
-    const limitParam = url.searchParams.get("limit");
-    const limit = limitParam ? parseInt(limitParam, 10) : 50;
+    const query = url.searchParams.get("query")?.trim();
+    const limit = parseInt(url.searchParams.get("limit") || "50");
 
-    // Build filter object dynamically
-    const filter: Record<string, unknown> = {};
-    if (country) {
-      filter.iso_country = country.toUpperCase(); // MongoDB filter by country code
+    const airportFilter: Filter<Document> = {
+    type: { $in: ["small_airport", "large_airport"] },
+    gps_code: { $ne: "" },
+    };
+
+    let countryCode: string | null = null;
+
+    if (query) {
+        // Try to match the country name first
+        const country = await db.collection("countries").findOne({
+        name: { $regex: `^${query}$`, $options: "i" },
+        });
+
+        if (country?.code) {
+            countryCode = country.code;
+        }
+
+        // Build the OR filter: match airport name OR match iso_country
+        airportFilter.$or = [
+            { name: { $regex: query, $options: "i" } },
+            ...(countryCode ? [{ iso_country: countryCode }] : []),
+        ];
     }
 
-        // Query airports collection with filter and limit
-        const airports = await db.collection("airports")
-            .find(filter)
-            .limit(limit)
-            .toArray();
+    const airports = await db
+        .collection("airports")
+        .find(airportFilter)
+        .limit(limit)
+        .toArray();
 
-        return NextResponse.json(airports);
+    return NextResponse.json(airports);
     } catch (error) {
-        console.error("Error fetching airports:", error);
+        console.error("Error in airport search route:", error);
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }

@@ -4,19 +4,16 @@ import plane from '@/public/icons/plane.svg'
 import city from '@/public/icons/city.svg'
 
 export interface Airport {
-    presentation: {
-        title: string;
-        subtitle: string;
-    };
-    navigation: {
-        relevantFlightParams: {
-            skyId: string;
-            entityId: number
-        },
-        relevantHotelParams: {
-            localizedName: string;
-        }
-    }
+    id: number;
+    name: string;
+    latitude_deg: number;
+    longitude_deg: number;  
+    iso_country: string;
+    iso_region: string;
+    gps_code: string;
+    iata_code: string;
+    continent: string;
+    municipality: string;
 }
 
 interface AirportDropdownProps {
@@ -28,46 +25,43 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
     if (!airports.length) return null;
 
     return (
-        <div className="absolute top-14 left-0 z-10 w-full flex flex-col space-y-2 bg-[#f5ffff] rounded-lg max-w-sm">
-            <div className="w-full p-2 shadow-2xl rounded-lg max-h-60 overflow-y-scroll">
+        <div className='w-full absolute top-16 left-0 bg-[#fffdf5] rounded-xs z-10'>
+            <div className='px-4 py-2 flex flex-col max-h-60 overflow-y-auto'>
                 {airports.map((item) => (
-                    <div
-                        key={item?.navigation?.relevantFlightParams?.entityId}
-                        className="mb-2 px-2 py-1 cursor-pointer"
-                        onClick={() => onSelectAirport(item)}
-                    >
-                        <div className='w-full flex flex-col border-b border-sky-100 py-1'>
-                            <div className="w-full text-[#076585] flex items-center space-x-1.5">
-                                <Image 
-                                src={city}
-                                alt='Plane'
-                                width={24}
-                                height={24}
-                                />
-                                <div className='flex flex-col space-y-0.5 '>
-                                    <span className='text-sm text-[#076585]'>
-                                        {item?.navigation?.relevantHotelParams?.localizedName}
-                                    </span>
-                                    <span className='text-xs text-[#076585]/50'>
-                                        City in {item?.presentation?.subtitle}
-                                    </span>
-                                </div>
+                    <div 
+                    key={item?.id}
+                    onClick={() => onSelectAirport(item)}
+                    className='w-full flex flex-col bg-transparent border-b border-[#050801]/20 py-2'>
+                        <div className="w-full p-2 flex items-center space-x-4">
+                            <Image 
+                            src={city}
+                            alt='City'
+                            width={20}
+                            height={20}
+                            />
+                            <div className='flex flex-col space-y-0.5 '>
+                                <span className='text-sm text-[#050801] font-medium'>
+                                    {item?.municipality}
+                                </span>
+                                <span className='text-xs text-[#050801]/50'>
+                                    City in {item?.iso_country} - {item?.iso_region}
+                                </span>
                             </div>
-                            <div className="w-full flex items-center space-x-3 py-1 pl-2 my-1 hover:bg-sky-100 rounded-lg ">
-                                <Image 
-                                src={plane}
-                                alt='Plane'
-                                width={28}
-                                height={28}
-                                />
-                                <div className='flex flex-col space-y-0.5 '>
-                                    <span className='text-[#076585]'>
-                                    {item?.presentation?.title}
-                                    </span>
-                                    <span className='text-xs text-[#076585]/50'>
-                                        {item?.navigation?.relevantFlightParams?.skyId}
-                                    </span>
-                                </div>
+                        </div>
+                        <div className="w-full flex items-center space-x-3 py-2 pl-3 my-1 hover:bg-[#FDC830]/20 rounded-xs cursor-pointer ">
+                            <Image 
+                            src={plane}
+                            alt='Plane'
+                            width={32}
+                            height={32}
+                            />
+                            <div className='flex flex-col space-y-0.5 '>
+                                <span className='text-[#050801] font-semibold'>
+                                    {item?.name}
+                                </span>
+                                <span className='text-xs text-[#050801]/50 '>
+                                    {item?.continent} ({item?.gps_code} )
+                                </span>
                             </div>
                         </div>
                     </div>

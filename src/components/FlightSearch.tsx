@@ -27,44 +27,36 @@ const FlightSearch = () => {
   const [airports, setAirports] = useState<Airport[]>([]);
   const [whereFrom, setWhereFrom] = useState<string>('');
   const [whereTo, setWhereTo] = useState<string>('');
-  const [originFlight, setOriginFlight] = useState<{ originSkyId: string; originEntityId: number }>();
-  const [destinationFlight, setDestinationFlight] = useState<{ destinationSkyId: string; destinationEntityId: number }>();
+  const [originFlight, setOriginFlight] = useState<{ originSkyId: string; originEntityId: string }>();
+  const [destinationFlight, setDestinationFlight] = useState<{ destinationSkyId: string; destinationEntityId: string }>();
   const [activeField, setActiveField] = useState<'from' | 'to' | null>(null);
   const [range, setRange] = useState<{ startDate: Date; endDate: Date } | null>(null);
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
 
-  // useEffect(() => {
-  //   if (!query.trim()) return; // avoid empty queries
+useEffect(() => {
+  if (!query) return;
 
-  //   const fetchData = async () => {
-  //     const url = `https://sky-scrapper.p.rapidapi.com/api/v1/flights/searchAirport?query=${query}&locale=en-US`;
-  //     const options = {
-  //       method: 'GET',
-  //       headers: {
-  //         'x-rapidapi-key': process.env.NEXT_PUBLIC_RAPIDAPI_KEY!,
-  //         'x-rapidapi-host': 'sky-scrapper.p.rapidapi.com',
-  //       },
-  //     };
+  const fetchAirports = async () => {
+    try {
+      const res = await fetch(`/api/airports?query=${encodeURIComponent(query)}`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+      const data = await res.json();
+      setAirports(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  //     try {
-  //       const response = await fetch(url, options);
-  //       const result = await response.json();
-  //       setAirports(result.data);
-  //     } catch (error) {
-  //       console.error('Error fetching flight data:', error);
-  //     }
-  //   };
+  fetchAirports();
+}, [query]);
 
-  //   fetchData();
-  // }, [query]);
 
 const handleWhereFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = e.target.value;
   setWhereFrom(value);
   setQuery(value);
   setActiveField('from');
-  setError('');
 };
 
 const handleWhereTo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,26 +64,27 @@ const handleWhereTo = (e: React.ChangeEvent<HTMLInputElement>) => {
   setWhereTo(value);
   setQuery(value);
   setActiveField('to');
-  setError('');
 };
+
 
 const handleAirportSelect = (airport: Airport) => {
   if (activeField === 'from') {
     setOriginFlight({
-      originSkyId: airport?.navigation?.relevantFlightParams?.skyId,
-      originEntityId: airport?.navigation?.relevantFlightParams.entityId
-    })
-    setWhereFrom(airport?.presentation?.title);
+      originSkyId: airport.gps_code || '',
+      originEntityId: airport.iata_code || '',
+    });
+    setWhereFrom(`${airport.name}, ${airport.municipality} (${airport.iata_code})`);
   } else if (activeField === 'to') {
     setDestinationFlight({
-      destinationSkyId: airport?.navigation?.relevantFlightParams?.skyId,
-      destinationEntityId: airport?.navigation?.relevantFlightParams.entityId
-    })
-    setWhereTo(airport?.presentation?.title);
+      destinationSkyId: airport.gps_code || '',
+      destinationEntityId: airport.iata_code || '',
+    });
+    setWhereTo(`${airport.name}, ${airport.municipality} (${airport.iata_code})`);
   }
   setQuery('');
   setAirports([]);
 };
+
 
 const handleSearch = () => {
   if (!originFlight || !destinationFlight || !range) {
@@ -163,7 +156,7 @@ const handleSearch = () => {
       </div>
       <div className="w-full flex items-center gap-x-4  ">
         {/* Where from? Airports or city  */}
-        <div className='relative w-1/3 flex flex-col space-y-4 '>
+        <div className='relative w-1/3 flex flex-col space-y-4  '>
           <Input
             name="whereFrom"
             placeholder="Airport or City"

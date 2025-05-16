@@ -24,8 +24,8 @@ const SearchContainer = () => {
     };
 
     return (
-        <div className="relative w-full pb-16 flex flex-col items-center justify-center -translate-y-14  ">
-            <div className="w-[90%] 2xl:w-4/5 rounded-xs bg-transparent ">
+        <div className="relative w-full pb-16 flex flex-col items-center justify-center -translate-y-14 ">
+            <div className="w-[90%] 2xl:w-4/5 rounded-xs ">
                 <TabSelector activeTab={activeTab} onSelect={setActiveTab} />
                 <div className="w-full p-6 rounded-b-lg bg-[#FDC830] ">
                     {renderTabContent()}
