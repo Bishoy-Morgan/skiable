@@ -30,3 +30,42 @@
 
 ## 📂 Project Structure
 
+/app
+/api/v1/flights/searchAirport - API endpoint
+/components - UI components
+/hooks - custom hooks
+/lib/mongodb.ts - MongoDB connection
+/page.tsx - main page
+
+
+---
+
+## 🧪 Getting Started (Local Development)
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/your-username/skiable.git
+cd skiable
+
+2. Install dependencies:
+
+npm install
+
+3. Create a .env.local file in the root directory and add your MongoDB connection string:
+
+MONGODB_URI=your-mongodb-uri-here
+
+4.Run the development server:
+
+npm run dev
+
+5. Open http://localhost:3000 in your browser.
+
+🤝 Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+
+📄 License
+MIT License
+© 2025 Bishoy Morgan
+
