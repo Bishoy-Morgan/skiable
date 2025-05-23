@@ -1,4 +1,4 @@
-# ❄️ Skiable
+# ❄✈️ Skiable
 
 **Skiable** is a modern, high-performance web app that helps users search and explore airports based on cities, states, or locations — perfect for travelers and aviation enthusiasts.
 
