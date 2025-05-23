@@ -4,16 +4,13 @@ import plane from '@/public/icons/plane.svg'
 import city from '@/public/icons/city.svg'
 
 export interface Airport {
-    id: number;
-    name: string;
-    latitude_deg: number;
-    longitude_deg: number;  
-    iso_country: string;
-    iso_region: string;
-    gps_code: string;
-    iata_code: string;
-    continent: string;
-    municipality: string;
+    AirportID: number;
+    Name: string;
+    City: number;
+    Country: number;  
+    IATA: string;
+    ICAO: string;
+    TzDatabaseTimeZone: string;
 }
 
 interface AirportDropdownProps {
@@ -29,7 +26,7 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
             <div className='px-4 py-2 flex flex-col max-h-60 overflow-y-auto'>
                 {airports.map((item) => (
                     <div 
-                    key={item?.id}
+                    key={item?.AirportID}
                     onClick={() => onSelectAirport(item)}
                     className='w-full flex flex-col bg-transparent border-b border-[#050801]/20 py-2'>
                         <div className="w-full p-2 flex items-center space-x-4">
@@ -41,10 +38,10 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
                             />
                             <div className='flex flex-col space-y-0.5 '>
                                 <span className='text-sm text-[#050801] font-medium'>
-                                    {item?.municipality}
+                                    {item?.City}
                                 </span>
                                 <span className='text-xs text-[#050801]/50'>
-                                    City in {item?.iso_country} - {item?.iso_region}
+                                    City in {item?.Country}
                                 </span>
                             </div>
                         </div>
@@ -57,10 +54,10 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
                             />
                             <div className='flex flex-col space-y-0.5 '>
                                 <span className='text-[#050801] font-semibold'>
-                                    {item?.name}
+                                    {item?.Name} ({item?.IATA})
                                 </span>
                                 <span className='text-xs text-[#050801]/50 '>
-                                    {item?.continent} ({item?.gps_code} )
+                                    {item?.TzDatabaseTimeZone} ({item?.ICAO})
                                 </span>
                             </div>
                         </div>

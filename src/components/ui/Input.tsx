@@ -31,10 +31,10 @@ const Input: React.FC<InputProps> = ({
   // Icon classes based on value
     const iconClasses = value
         ? 'absolute top-1/2 -translate-y-1/2 left-3 opacity-100  w-8 h-8 2xl:w-10 2xl:h-10 '
-        : 'absolute top-1/2 -translate-y-1/2 left-0 opacity-0 group-hover:left-2 group-hover:opacity-100 group-active:opacity-100 group-active:left-3 transition-all duration-300 ease-in-out w-8 h-8 2xl:w-10 2xl:h-10';
+        : 'absolute top-1/2 -translate-y-1/2 left-0 opacity-0 group-hover:left-2 group-hover:opacity-100 group-active:opacity-100 group-active:left-3 transition-all duration-300 ease-in-out w-8 h-8 2xl:w-9 2xl:h-9';
 
     return (
-        <div className={`relative group w-full mt-0 mb-0 max-w-96 2xl:max-w-[30rem] ${className}`}>
+        <div className={`relative group w-full mt-0 mb-0 max-w-96 2xl:max-w-[30rem] shadow-lg rounded-xl ${className}`}>
             <input
                 id={name}
                 name={name}
@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                className={`w-full px-4 py-4 2xl:py-5 pl-11 2xl:pl-12 border border-transparent outline-none bg-[#fffdf5] rounded-xs placeholder:text-[#050801]/70 text-[#050801] 2xl:placeholder:text-xl 2xl:text-xl transition duration-150 ease-in-out focus:border-[#050801] focus:bg-[#fffdf5] active:bg-[#fffdf5]
+                className={`w-full px-4 py-4 2xl:py-5 pl-11 2xl:pl-12 border border-transparent outline-none bg-[#fffefc] rounded-xl placeholder:text-black/50 text-black 2xl:placeholder:text-xl 2xl:text-xl transition duration-150 ease-in-out focus:border-black/20 focus:bg-[#fffefc] active:bg-[#fffefc]
                 ${error ? 'border-red-500' : ''} focus:-translate-y-0.5 `}
             />
             <Image

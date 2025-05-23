@@ -27,8 +27,8 @@ const FlightSearch = () => {
   const [airports, setAirports] = useState<Airport[]>([]);
   const [whereFrom, setWhereFrom] = useState<string>('');
   const [whereTo, setWhereTo] = useState<string>('');
-  const [originFlight, setOriginFlight] = useState<{ originSkyId: string; originEntityId: string }>();
-  const [destinationFlight, setDestinationFlight] = useState<{ destinationSkyId: string; destinationEntityId: string }>();
+  const [originFlight, setOriginFlight] = useState<{ originIATA: string }>();
+  const [destinationFlight, setDestinationFlight] = useState<{ destinationIATA: string}>();
   const [activeField, setActiveField] = useState<'from' | 'to' | null>(null);
   const [range, setRange] = useState<{ startDate: Date; endDate: Date } | null>(null);
   const [query, setQuery] = useState('');
@@ -39,7 +39,7 @@ useEffect(() => {
 
   const fetchAirports = async () => {
     try {
-      const res = await fetch(`/api/airports?query=${encodeURIComponent(query)}`);
+      const res = await fetch(`/api/v1/airports?query=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
       const data = await res.json();
       setAirports(data);
@@ -66,25 +66,21 @@ const handleWhereTo = (e: React.ChangeEvent<HTMLInputElement>) => {
   setActiveField('to');
 };
 
-
 const handleAirportSelect = (airport: Airport) => {
   if (activeField === 'from') {
     setOriginFlight({
-      originSkyId: airport.gps_code || '',
-      originEntityId: airport.iata_code || '',
+      originIATA: airport.IATA || '',
     });
-    setWhereFrom(`${airport.name}, ${airport.municipality} (${airport.iata_code})`);
+    setWhereFrom(`${airport.Name}, ${airport.City} (${airport.IATA})`);
   } else if (activeField === 'to') {
     setDestinationFlight({
-      destinationSkyId: airport.gps_code || '',
-      destinationEntityId: airport.iata_code || '',
+      destinationIATA: airport.IATA || '',
     });
-    setWhereTo(`${airport.name}, ${airport.municipality} (${airport.iata_code})`);
+    setWhereTo(`${airport.Name}, ${airport.City} (${airport.IATA})`);
   }
   setQuery('');
   setAirports([]);
 };
-
 
 const handleSearch = () => {
   if (!originFlight || !destinationFlight || !range) {
@@ -92,23 +88,33 @@ const handleSearch = () => {
     return;
   }
 
+  const startDateStr = new Date(range.startDate.setHours(0, 0, 0, 0)).toISOString(); 
+  const endDateStr = new Date(range.endDate.setHours(23, 59, 59, 999)).toISOString();
+
   const queryParams = new URLSearchParams({
-    originSkyId: originFlight.originSkyId,
-    destinationSkyId: destinationFlight.destinationSkyId,
-    originEntityId: originFlight.originEntityId.toString(),
-    destinationEntityId: destinationFlight.destinationEntityId.toString(),
-    cabinClass: cabinClass.toLowerCase(),
-    adults: travellerCounts.adults.toString(),
-    sortBy: 'best',
-    currency: 'USD',
-    market: 'en-US',
-    countryCode: 'US',
-    startDate: range.startDate.toISOString().split('T')[0],
-    endDate: range.endDate.toISOString().split('T')[0],
+    originIATA: originFlight.originIATA,
+    destinationIATA: destinationFlight.destinationIATA,
+    startDate: startDateStr,
+    endDate: endDateStr,
   });
 
+  // Add tripType based on your logic
+  if (tripType === 'Round trip') {
+    queryParams.append('tripType', 'round');
+  } else if (tripType === 'One way') {
+    queryParams.append('tripType', 'oneway');
+  } else if (tripType === 'Multi-city') {
+    queryParams.append('tripType', 'multicity');
+  }
+
+  const limit = 10; 
+  const skip = 0;  
+
+  queryParams.append('limit', limit.toString());
+  queryParams.append('skip', skip.toString());
+
   router.push(`/search-result?${queryParams.toString()}`);
-};
+}
 
 
 
@@ -154,7 +160,7 @@ const handleSearch = () => {
           )}
         </div>
       </div>
-      <div className="w-full flex items-center gap-x-4  ">
+      <div className="w-full flex items-center gap-x-4 my-6  ">
         {/* Where from? Airports or city  */}
         <div className='relative w-1/3 flex flex-col space-y-4  '>
           <Input
@@ -203,9 +209,9 @@ const handleSearch = () => {
             setError('');
             handleSearch();
           }}
-          className="flex items-center gap-2 px-8 py-3 bg-[#050801] text-[#FDC830] rounded-xs font-bold text-lg "
+          className="white-btn flex items-center gap-x-4 "
         >
-          <Image src={explore} alt='Explore' width={24} height={24} />
+          <Image src={explore} alt='Explore' width={30} height={30} className='bg-black rounded-lg p-1'/>
           <span>
             Explore
           </span>

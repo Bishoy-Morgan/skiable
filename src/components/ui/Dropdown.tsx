@@ -30,11 +30,11 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
         <div className={`relative min-w-36 max-w-60 ${className} `} ref={dropdownRef}>
             <div
                 onClick={() => setOpen((prev) => !prev)}
-                className={`flex items-center justify-between px-4 py-2 border border-transparent hover:border-[#050801] hover:bg-[#050801]/5 rounded-xs cursor-pointer transition-all duration-200 ease-in-out ${
-                    open && '!border-[#050801] bg-[#050801]/5'
+                className={`flex items-center justify-between px-4 py-2 hover:bg-black/5 rounded-xl cursor-pointer transition-all duration-200 ease-in-out ${
+                    open && 'bg-black/5'
                 }`}
             >
-                <span className='text-[#050801] font-medium'>{selected}</span>
+                <span className='text-black font-medium'>{selected}</span>
                 <Image
                 src={arrow}
                 alt="arrow"
@@ -45,7 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
             </div>
 
             {open && (
-                <ul className={`absolute mt-2 bg-[#050801] text-[#FDC830] rounded-xs shadow-sm z-10 p-1.5 ${widthClass ?? 'w-full'}`}>
+                <ul className={`absolute mt-2 bg-[#fffefc] text-black rounded-xl shadow-lg p-2 z-10 ${widthClass ?? 'w-full'}`}>
                     {options.map((option) => (
                         <li
                         key={option}
@@ -53,8 +53,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onChange, classN
                             onChange(option);
                             setOpen(false);
                         }}
-                        className={`px-4 py-2 cursor-pointer bg-[#050801]  ${
-                            option === selected ? 'font-semibold text-[#050801] bg-[#FDC830] ' : 'hover:bg-[#FDC830]/5 hover:pl-6 transition-all duration-200 ease-in-out'
+                        className={`px-4 py-2 cursor-pointer rounded-xl  ${
+                            option === selected ? 'font-semibold text-black ' : 'hover:bg-black/5 hover:pl-6 transition-all duration-200 ease-in-out '
                         } `}
                         >
                             {option}

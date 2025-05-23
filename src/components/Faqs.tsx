@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import arrow from '@/public/icons/yellow-arrow.svg'; 
+import arrow from '@/public/icons/arrow.svg'; 
 
 type FAQ = {
   question: string;
@@ -47,12 +47,14 @@ const Faqs: React.FC = () => {
 
   return (
     <section className="w-[90%] 2xl:w-4/5 mx-auto py-12">
-      <h2 className="text-5xl font-bold text-center mb-10 text-[#fffdf5]">Frequently Asked Questions</h2>
+      <h2 className="mb-10 text-black max-w-3xl">
+        Frequently Asked Questions
+      </h2>
       <div className="space-y-6">
         {faqs.map((faq, index) => (
           <motion.div
             key={index}
-            className="border border-[#FDC830] bg-[#FDC830]/5 p-5 rounded-xs transition duration-300  "
+            className="bg-[#F5F3ED] p-8 rounded-xl transition duration-300  "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -62,29 +64,29 @@ const Faqs: React.FC = () => {
               className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleAnswer(index)}
             >
-              <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+              <p className="main-para font-semibold mb-2">{faq.question}</p>
               <motion.div
-                animate={{ rotate: openIndex === index ? 180 : 0 }} // Rotate arrow when open
+                animate={{ rotate: openIndex === index ? 180 : 0 }} 
                 transition={{ duration: 0.3 }}
               >
                 <Image
                   src={arrow}
                   alt="Arrow"
-                  width={26} 
-                  height={26} 
+                  width={30} 
+                  height={30} 
                   className="text-xl"
                 />
               </motion.div>
             </div>
             {openIndex === index && (
               <motion.div
-                className="text-[#FDC830] mt-4"
+                className="text-black mt-4"
                 initial={{ height: 0 }}
                 animate={{ height: 'auto' }}
                 exit={{ height: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <p>{faq.answer}</p>
+                <p className='para-14'>{faq.answer}</p>
               </motion.div>
             )}
           </motion.div>

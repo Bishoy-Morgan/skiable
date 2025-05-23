@@ -12,10 +12,13 @@ const center: LatLngExpression = [51.505, -0.09];
 const MapSection = () => {
   return (
     <section className='relative w-full flex flex-col items-center my-20 bg-transparent '>
-      <div className='w-[90%] 2xl:w-4/5 rounded-xs'>
-        <h1 className='text-[#fffdf5] text-5xl font-bold mb-10 '>
+      <div className='w-[90%] 2xl:w-4/5 rounded-xl max-w-7xl'>
+        <h2 className='mb-10 max-w-xl'>
           Find cheap flights from United States to anywhere
-        </h1>
+        </h2>
+        <p className='para-14 mb-10 max-w-2xl !font-medium '>
+          Search, compare, and book flights from anywhere in the U.S. to any destination worldwide instantly access hundreds of airlines, flexible options, and the lowest available prices, all in one seamless experience.
+        </p>
         <MapContainer
           center={center}
           zoom={3}
