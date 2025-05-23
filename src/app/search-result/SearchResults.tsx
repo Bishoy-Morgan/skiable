@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import arrow from '@/public/icons/arrow.svg';
 import logo from '@/public/images/airlines logos/Qatar.png';
+import { useCallback } from 'react';
 
 interface Flight {
   _id: string;
@@ -37,9 +38,10 @@ const SearchResults = () => {
   const tripType = searchParams.get('tripType') || 'Round trip';
 
   // Fetch flights function with skip & limit
-  const fetchFlights = async (skipParam = 0, append = false) => {
+
+
+  const fetchFlights = useCallback(async (skipParam = 0, append = false) => {
     setLoadingMore(true);
-    // Build URL with limit and skip
     const baseParams = new URLSearchParams(searchParams.toString());
     baseParams.set('limit', LIMIT.toString());
     baseParams.set('skip', skipParam.toString());
@@ -48,7 +50,6 @@ const SearchResults = () => {
     const res = await fetch(url);
     const data = await res.json();
 
-    // Combine direct and related flights
     const newFlights = [...(data.directFlights || []), ...(data.relatedFlights || [])];
 
     if (append) {
@@ -57,16 +58,17 @@ const SearchResults = () => {
       setFlights(newFlights);
     }
 
-    // If less flights returned than limit, no more data
-    if (newFlights.length < LIMIT * 2) { // *2 because you combine direct + related flights each with limit
-      setHasMore(false);
-    } else {
-      setHasMore(true);
-    }
-
+    setHasMore(newFlights.length >= LIMIT * 2);
     setLoading(false);
     setLoadingMore(false);
-  };
+  }, [searchParams]);
+
+  useEffect(() => {
+    setSkip(0);
+    setHasMore(true);
+    fetchFlights(0, false);
+  }, [searchParams, fetchFlights]);
+
 
   // Initial fetch on search param change
   useEffect(() => {

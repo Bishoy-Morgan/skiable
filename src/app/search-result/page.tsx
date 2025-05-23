@@ -1,4 +1,3 @@
-// app/search-result/page.tsx
 'use client'
 
 import { Suspense } from 'react'
