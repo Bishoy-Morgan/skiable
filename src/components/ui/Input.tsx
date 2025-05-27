@@ -42,6 +42,7 @@ const Input: React.FC<InputProps> = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
+                required
                 className={`w-full px-4 py-4 2xl:py-5 pl-11 2xl:pl-12 border border-transparent outline-none bg-[#fffefc] rounded-xl placeholder:text-black/50 text-black 2xl:placeholder:text-xl 2xl:text-xl transition duration-150 ease-in-out focus:border-black/20 focus:bg-[#fffefc] active:bg-[#fffefc]
                 ${error ? 'border-red-500' : ''} focus:-translate-y-0.5 `}
             />

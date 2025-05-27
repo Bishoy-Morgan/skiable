@@ -29,7 +29,7 @@ const Navbar = () => {
     // }
 
     return (
-        <nav className='absolute top-[2%] left-1/2 -translate-x-1/2 w-[90%] 2xl:w-4/5 h-16 flex justify-center items-center max-w-7xl'>
+        <nav className='absolute z-50 top-[2%] left-1/2 -translate-x-1/2 w-[90%] 2xl:w-4/5 h-16 flex justify-center items-center max-w-7xl'>
             <div className='w-full flex items-center justify-between'>
                 <div className='flex items-center space-x-2'>
                     <Image
@@ -64,7 +64,13 @@ const Navbar = () => {
                             Contact
                         </li>
                     </ul>
-                    <button className='dark-btn '>
+                    <button 
+                    className='bg-black/5 text-black rounded-xl px-4 py-2 font-medium hover:bg-black/10 hover:scale-105 transition-transform duration-300 ease-in-out'
+                    style={{
+                        fontSize: 'clamp(15px, 1.2vw, 16px)',
+                        lineHeight: 'clamp(20px, 2vw, 22px)'
+                    }}
+                    >
                         Sign in
                     </button>
                 </div>

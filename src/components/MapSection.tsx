@@ -22,7 +22,7 @@ const MapSection = () => {
         <MapContainer
           center={center}
           zoom={3}
-          style={{ height: '500px', width: '100%', borderRadius: ".5rem" }}
+          style={{ height: '300px', width: '100%', borderRadius: ".5rem" }}
         >
           <TileLayer
             attribution="&copy; OpenStreetMap contributors"

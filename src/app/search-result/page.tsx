@@ -1,12 +1,18 @@
 'use client'
 
 import { Suspense } from 'react'
-import SearchResult from './SearchResults'
+import SearchResult from './components/SearchResults'
+import FlightSearch from '@/src/components/FlightSearch'
 
 export default function SearchResultPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-xl">Loading...</div>}>
-      <SearchResult />
-    </Suspense>
+    <main>
+      <div className='w-[90%] 2xl:w-4/5 rounded-xl max-w-7xl mx-auto mt-[10%] bg-[#F5F3ED] '>
+        <FlightSearch />
+      </div>
+      <Suspense>
+        <SearchResult />
+      </Suspense>
+    </main>
   )
 }

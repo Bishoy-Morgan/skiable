@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import longArrow from '@/public/icons/long-arrow.svg';
 import logo from '@/public/icons/logo.svg';
+import Button from './ui/Button';
 
 const Footer = () => {
   return (
@@ -27,7 +28,7 @@ const Footer = () => {
             <p className="para-14 mb-8 max-w-52 text-left">Stay updated with the latest news and offers.</p>
           </div>
           <div className='w-1/2 flex items-start justify-end px-16 py-10'>
-            <button className='white-btn flex items-center gap-x-4'>
+            {/* <button className='white-btn flex items-center gap-x-4'>
                 <Image 
                 src={longArrow}
                 alt='Arrow Right'
@@ -38,7 +39,14 @@ const Footer = () => {
                 <span>
                     Available Offeres
                 </span>
-            </button>
+            </button> */}
+            <Button
+            iconSrc={longArrow}
+            iconAlt="Long Arrow"
+            className='border border-[#fffefc]'
+            >
+              Available Offers
+            </Button>
           </div>
         </div>
         <div className="w-full mt-4">

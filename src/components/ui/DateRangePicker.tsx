@@ -125,7 +125,7 @@ export default function DateRangePicker({ onSelectRange }: Props) {
       </button>
 
       {open && (
-        <div className="absolute z-50 mt-2 p-4 rounded-xl border bg-[#fffefc] shadow-lg w-[280px]">
+        <div className="absolute z-50 mt-2 p-4 rounded-xl bg-[#fffefc] shadow-lg w-[280px]">
           <div className="flex items-center justify-between mb-2">
             <button
               onClick={handlePrevMonth}

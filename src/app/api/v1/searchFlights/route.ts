@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
     const client = await clientPromise;
     const db = client.db('skiable');
-    const collection = db.collection<Flight>('searchFlights');
+    const collection = db.collection<Flight>('v2-searchFlights');
 
     const limitParam = searchParams.get('limit');
     const skipParam = searchParams.get('skip');

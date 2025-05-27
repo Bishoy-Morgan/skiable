@@ -11,6 +11,7 @@ import Image from 'next/image';
 import arrow from '@/public/icons/arrow.svg'
 import explore from '@/public/icons/explore.svg'
 import { useRouter } from 'next/navigation';
+import Button from './ui/Button';
 
 
 const FlightSearch = () => {
@@ -200,22 +201,13 @@ const handleSearch = () => {
         </div>
       </div>
       <div className="flex justify-center mt-10">
-        <button
-          onClick={() => {
-            // if (!whereFrom || !whereTo || !range) {
-            //   setError('Please fill in all required fields.');
-            //   return;
-            // }
-            setError('');
-            handleSearch();
-          }}
-          className="white-btn flex items-center gap-x-4 "
+        <Button
+          iconSrc={explore}
+          iconAlt="Explore"
+          onClick={handleSearch}
         >
-          <Image src={explore} alt='Explore' width={30} height={30} className='bg-black rounded-lg p-1'/>
-          <span>
-            Explore
-          </span>
-        </button>
+          Explore
+        </Button>
       </div>
     </div>
   );

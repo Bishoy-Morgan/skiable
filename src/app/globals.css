@@ -22,18 +22,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.white-btn {
-  @apply bg-[#fffefc] text-[#000000] rounded-2xl px-6 py-4 font-medium ;
-  font-size: clamp(15px, 1.2vw, 16px);
-  line-height: clamp(20px, 2vw, 22px);
-}
-
-.dark-btn {
-  @apply bg-[#000000]/5 text-[#000000] rounded-xl px-4 py-2 font-medium ;
-  font-size: clamp(15px, 1.2vw, 16px);
-  line-height: clamp(20px, 2vw, 22px);
-}
-
 h1 {
   font-size: clamp(36px, 8vw, 80px);
   line-height: clamp(44px, 8.8vw, 88px);
@@ -73,4 +61,47 @@ h3 {
     font-size: clamp(1rem, 1.1vw + 0.5rem, 1.125rem); /* ~16px to 18px */
     line-height: clamp(1.5rem, 1.7vw + 0.5rem, 1.5625rem); /* ~24px to 25px */
   }
+}
+
+.loader {
+    width: 70px;
+    height: 35px;
+    position: relative;
+    overflow: hidden;
+  }
+  .loader:before {
+    content: "";
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 5px solid #0000;
+    border-color: #000 #000 #0000 #0000;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotate 3s ease-in-out infinite;
+    transform: rotate(-200deg);
+  }
+  @keyframes rotate {
+    0% {
+      border-width: 10px;
+    }
+    25% {
+      border-width: 3px;
+    }
+    50% {
+      transform: rotate(115deg);
+      border-width: 10px;
+    }
+    75% {
+      border-width: 3px;
+    }
+    100% {
+      border-width: 10px;
+    }
+  }
+
+.black-graidient {
+  background-image: linear-gradient(to bottom, #00000066, #b3b0ac, #f5f3ed);
 }
