@@ -3,35 +3,20 @@
 import Image from 'next/image'
 import React from 'react'
 import logo from '@/public/icons/logo-black.svg'
-// import darkTheme from '@/public/icons/dark.svg'
-// import lightTheme from '@/public/icons/light.svg'
+import { usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const Navbar = () => {
-    // const [theme, setTheme] = useState<'light' | 'dark'>('light')
-
-    // useEffect(() => {
-    //     // Apply theme to <html> tag
-    //     document.documentElement.classList.remove('light', 'dark')
-    //     document.documentElement.classList.add(theme)
-
-    //     // Optional: save to localStorage
-    //     localStorage.setItem('theme', theme)
-    // }, [theme])
-
-    // useEffect(() => {
-    //     // Optional: load from localStorage on first load
-    //     const storedTheme = localStorage.getItem('theme') as 'light' | 'dark'
-    //     if (storedTheme) setTheme(storedTheme)
-    // }, [])
-
-    // const toggleTheme = () => {
-    //     setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
-    // }
+    const route = useRouter()
+    const pathname = usePathname()
 
     return (
         <nav className='absolute z-50 top-[2%] left-1/2 -translate-x-1/2 w-[90%] 2xl:w-4/5 h-16 flex justify-center items-center max-w-7xl'>
             <div className='w-full flex items-center justify-between'>
-                <div className='flex items-center space-x-2'>
+                <div 
+                onClick={() => route.push(`/`)} 
+                className='cursor-pointer flex items-center space-x-2'
+                >
                     <Image
                         src={logo}
                         alt='Logo'
@@ -46,23 +31,25 @@ const Navbar = () => {
                     </span>
                 </div>
                 <div className='flex items-center space-x-12'>
-                    {/* <button onClick={toggleTheme}>
-                        {theme === 'light' ? (
-                            <Image src={lightTheme} alt='Light' width={28} height={28} />
-                        ) : (
-                            <Image src={darkTheme} alt='Dark' width={28} height={28} />
-                        )}
-                    </button> */}
                     <ul className='flex items-center space-x-8 border-r border-black/10 pr-8'>
-                        <li className='text-sm font-medium text-black cursor-pointer hover:translate-y-1 transition duration-300 ease-in-out'>
+                        <Link 
+                        href={`/`}
+                        className={`${pathname == '/' ? 'text-black' : 'text-black/40 hover:translate-y-1 transition duration-300 ease-in-out' } text-sm font-medium  cursor-pointer `}
+                        >
                             Home
-                        </li>
-                        <li className='text-sm font-medium text-black cursor-pointer hover:translate-y-1 transition duration-300 ease-in-out'>
+                        </Link>
+                        <Link 
+                        href={`/about`}
+                        className={`${pathname == '/about' ? 'text-black' : 'text-black/40 hover:translate-y-1 transition duration-300 ease-in-out' } text-sm font-medium  cursor-pointer `}
+                        >
                             About
-                        </li>
-                        <li className='text-sm font-medium text-black cursor-pointer hover:translate-y-1 transition duration-300 ease-in-out'>
+                        </Link>
+                        <Link 
+                        href={`/contact`}
+                        className={`${pathname == '/contact' ? 'text-black' : 'text-black/40 hover:translate-y-1 transition duration-300 ease-in-out' } text-sm font-medium  cursor-pointer `}
+                        >
                             Contact
-                        </li>
+                        </Link>
                     </ul>
                     <button 
                     className='bg-black/5 text-black rounded-xl px-4 py-2 font-medium hover:bg-black/10 hover:scale-105 transition-transform duration-300 ease-in-out'

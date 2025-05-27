@@ -5,7 +5,6 @@ import HeroSection from "../components/HeroSection";
 import SearchContainer from "../components/SearchContainer";
 import ToolsSections from '../components/ToolsSection';
 import Faqs from '../components/Faqs';
-import Footer from '../components/Footer';
 
 
 const MapSection = dynamic(() => import('@/src/components/MapSection'), {
@@ -20,7 +19,6 @@ export default function Home() {
       <MapSection />
       <ToolsSections />
       <Faqs />
-      <Footer /> 
     </div>
   );
 }

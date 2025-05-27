@@ -109,7 +109,7 @@ export default function DateRangePicker({ onSelectRange }: Props) {
     <div className="relative group w-full my-0 max-w-96 2xl:max-w-[30rem] shadow-lg rounded-xl" ref={pickerRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center gap-1 px-4 py-4 2xl:py-5 border border-transparent rounded-xl outline-none bg-[#fffefc] text-black/70 transition duration-150 ease-in-out focus:border-black/20 focus:-translate-y-0.5 2xl:placeholder:text-xl 2xl:text-xl"
+        className="flex w-full items-center gap-1 px-4 py-4 2xl:py-5 rounded-xl outline-none bg-[#fffefc] text-black/70 transition duration-150 ease-in-out focus:shadow-xl focus:-translate-y-0.5 2xl:placeholder:text-xl 2xl:text-xl"
       >
         <Image
           src={calendar}
