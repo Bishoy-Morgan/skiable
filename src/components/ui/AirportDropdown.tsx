@@ -22,7 +22,7 @@ const AirportDropdown: React.FC<AirportDropdownProps> = ({ airports, onSelectAir
     if (!airports.length) return null;
 
     return (
-        <div className='w-full absolute top-16 left-0 bg-[#fffefc] rounded-lg z-10 shadow-lg'>
+        <div className='w-full absolute top-16 left-0 bg-[#fffefc] rounded-lg z-50 shadow-lg'>
             <div className='px-4 py-2 flex flex-col max-h-60 overflow-y-auto'>
                 {airports.map((item) => (
                     <div 

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { Flight } from './types';
+import { Flight } from '../../../types/flight';
 // import { desc } from 'framer-motion/client';
 import earth from '@/public/icons/flight-details/earth.svg';
 import power from '@/public/icons/flight-details/power.svg';

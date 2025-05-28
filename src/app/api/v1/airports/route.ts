@@ -29,8 +29,8 @@ export async function GET(req: NextRequest) {
             .find(airportFilter)
             .limit(limit)
             .project({
-                _id: 0,              // This hides MongoDB’s default _id field
-                AirportID: 1,        // Include AirportID if it exists
+                _id: 0,             
+                AirportID: 1,        
                 City: 1,
                 Name: 1,
                 Country: 1,

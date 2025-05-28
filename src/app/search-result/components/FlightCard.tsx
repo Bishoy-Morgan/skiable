@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import arrow from '@/public/icons/arrow.svg';
 import airplane from '@/public/icons/airplane.svg';
-import { Flight } from './types';
+import { Flight } from '@/src/types/flight';
 import FlightDetails from './FlightDetails';
 import { carrierLogos } from '@/src/utils/carrierLogos';
 
