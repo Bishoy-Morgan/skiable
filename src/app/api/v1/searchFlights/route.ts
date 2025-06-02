@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
     const client = await clientPromise;
     const db = client.db('skiable');
-    const collection = db.collection<Flight>('v2-searchFlights');
+    const collection = db.collection<Flight>('v1-searchFlights');
 
     const limitParam = searchParams.get('limit');
     const skipParam = searchParams.get('skip');
@@ -43,16 +43,25 @@ export async function GET(req: NextRequest) {
       const startDateStr = `${startDate}T00:00:00`;
       const endDateStr = `${endDate}T23:59:59`;
 
-      const departureFilter: DateStringFilter = {
+      // Parse endDate to get next month start date
+      const endDateObj = new Date(endDate);
+      const nextMonth = new Date(endDateObj.getFullYear(), endDateObj.getMonth() + 1, 1);
+      const nextMonthStr = nextMonth.toISOString();
+
+      const directDepartureFilter: DateStringFilter = {
         $gte: startDateStr,
         $lte: endDateStr,
+      };
+
+      const relatedDepartureFilter: DateStringFilter = {
+        $gte: nextMonthStr,
       };
 
       directFlights = await collection
         .find({
           origin_code: originIATA,
           destination_code: destinationIATA,
-          departure: departureFilter,
+          departure: directDepartureFilter,
         })
         .limit(limit)
         .skip(skip)
@@ -66,7 +75,7 @@ export async function GET(req: NextRequest) {
             { origin_code: destinationIATA },
             { destination_code: destinationIATA },
           ],
-          departure: departureFilter,
+          departure: relatedDepartureFilter,
           $nor: [
             { origin_code: originIATA, destination_code: destinationIATA },
           ],
@@ -75,6 +84,7 @@ export async function GET(req: NextRequest) {
         .skip(skip)
         .toArray();
     }
+
 
     const totalFlightsFound = directFlights.length + relatedFlights.length;
 

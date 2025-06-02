@@ -109,14 +109,14 @@ export default function DateRangePicker({ onSelectRange }: Props) {
     <div className="relative group w-full my-0 max-w-96 2xl:max-w-[30rem] shadow-lg rounded-xl" ref={pickerRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center gap-1 px-4 py-4 2xl:py-5 rounded-xl outline-none bg-[#fffefc] text-black/70 transition duration-150 ease-in-out focus:shadow-xl focus:-translate-y-0.5 2xl:placeholder:text-xl 2xl:text-xl"
+        className="flex w-full items-center gap-1 px-4 py-4 rounded-xl outline-none bg-[#fffefc] text-black/70 transition duration-150 ease-in-out focus:shadow-xl focus:-translate-y-0.5 cursor-pointer 2xl:placeholder:text-base 2xl:text-base"
       >
         <Image
           src={calendar}
           alt="Calendar"
           width={26}
           height={26}
-          className={`absolute left-2 transition-all duration-300 ease-in-out w-8 h-8 2xl:w-9 2xl:h-9
+          className={`absolute left-3 transition-all duration-300 ease-in-out w-7 h-7
             ${getFormattedDate() ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 group-hover:translate-x-0 group-hover:opacity-100'}`}
         />
         <span className="text-black/50 flex-1 text-left pl-7 2xl:pl-9">

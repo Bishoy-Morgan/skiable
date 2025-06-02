@@ -1,6 +1,8 @@
 export interface Flight {
     _id: string;
     id: number;
+    cabin_class: string,
+    flight_type: string,
     origin_code: string;
     destination_code: string;
     origin_name: string;
@@ -9,6 +11,7 @@ export interface Flight {
     destination_country: string;
     destination_city: string;
     destination_name: string;
+    duration_formatted: string,
     departure: string;
     arrival: string;
     price_raw: number;

@@ -60,9 +60,9 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
             <div className='flex items-center gap-x-2'>
               {/* side dots  */}
               <div className='relative w-[3.5%] h-20 flex flex-col justify-center items-center '>
-                <div className='w-2 h-2 rounded-xs bg-black/40 rotate-45 '></div>
+                <div className='w-2 h-2 rounded-xs bg-[#F5F3ED] rotate-45 '></div>
                 <div className='w-[1.6px] h-12 max-h-16 black-graidient my-1 rounded-sm'></div>
-                <div className='w-2 h-2 rounded-xs  bg-[#F5F3ED]  rotate-45 '></div>
+                <div className='w-2 h-2 rounded-xs bg-black/40   rotate-45 '></div>
               </div>
               {/* flight details  */}
               <div className='w-[95%] flex flex-col items-start '>
@@ -94,9 +94,14 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
                 </div>
               </div>
             </div>
-            <p className='text-black/60 text-[11px] mt-6 ml-10'>
-              {flight?.carrier_name} Airlines - Flight {flight.flight_number + Math.floor(Math.random() * 1000)}
+            <p className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
+              <span className="capitalize">{flight?.carrier_name}</span>
+              <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
+              <span className="capitalize">{flight.cabin_class}</span>
+              <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
+              <span>Flight {flight.flight_number + Math.floor(Math.random() * 1000)}</span>
             </p>
+
           </div>
 
           {/* Airline features  */}
@@ -168,8 +173,12 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
                   </div>
                 </div>
               </div>
-              <p className='text-black/60 text-[11px] mt-6 ml-10'>
-                {flight?.carrier_name} Airlines - Flight {flight.flight_number + Math.floor(Math.random() * 1000)}
+              <p className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
+                <span className="capitalize">{flight?.carrier_name}</span>
+                <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
+                <span className="capitalize">{flight.cabin_class}</span>
+                <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
+                <span>Flight {flight.flight_number + Math.floor(Math.random() * 1000)}</span>
               </p>
           </div>
 
@@ -243,8 +252,12 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
                   </div>
                 </div>
               </div>
-              <p className='text-black/60 text-[11px] mt-6 ml-10'>
-                {flight?.carrier_name} Airlines - Flight {flight.flight_number + Math.floor(Math.random() * 1000)}
+              <p className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
+                <span className="capitalize">{flight?.carrier_name}</span>
+                <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
+                <span className="capitalize">{flight.cabin_class}</span>
+                <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
+                <span>Flight {flight.flight_number + Math.floor(Math.random() * 1000)}</span>
               </p>
           </div>
 

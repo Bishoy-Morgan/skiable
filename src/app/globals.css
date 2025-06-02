@@ -103,5 +103,5 @@ h3 {
   }
 
 .black-graidient {
-  background-image: linear-gradient(to bottom, #00000066, #b3b0ac, #f5f3ed);
+  background-image: linear-gradient(to top, #00000066, #b3b0ac, #f5f3ed);
 }

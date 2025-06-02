@@ -34,24 +34,41 @@ const FlightCard = ({
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-base font-medium">
-              {new Date(flight.departure).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} —{' '}
-              {new Date(flight.arrival).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+            <span className="text-sm text-black/80 mb-0.5">
+              {new Date(flight.arrival).toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+              })}
             </span>
-            <span className="text-sm text-black/80">{flight.carrier_name}</span>
+            <span className="flex items-center">
+              <span className='text-base font-medium'>
+                {new Date(flight.departure).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+              </span>
+              <div className='w-1 h-1 bg-black/50 rounded-full mx-3'></div>
+              <span className='text-base font-medium'>
+                {new Date(flight.arrival).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+              </span>
+            </span>
           </div>
         </div>
 
         <div className="w-[15%] flex flex-col">
           <span className="text-base">{formatDuration(flight.duration_minutes)}</span>
-          <span className="text-sm text-black/50">
-            {flight.origin_code}-{flight.destination_code}
+          <span className="text-[11px] text-black/50">
+            {flight.origin_code} - {flight.destination_code}
           </span>
         </div>
 
         <div className="w-[15%] flex flex-col">
-          <span className="text-base">{flight.stop_count} stop</span>
-          <span className="text-sm text-black/50">{tripType} trip</span>
+          {flight.flight_type === "one_way" ? (
+            <span className="text-base">Direct</span>
+          ) : (
+            <span className="text-base">{flight.stop_count} stop</span>
+          )}
+          <span className="text-sm text-black/50">
+            {flight.flight_type.replace(/_/g, ' ')}
+          </span>
         </div>
 
         <div className="w-[10%] flex flex-col items-center">
