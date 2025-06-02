@@ -11,11 +11,11 @@ import { carrierLogos } from '@/src/utils/carrierLogos';
 
 const FlightCard = ({
   flight,
-  tripType,
+  // tripType,
   formatDuration,
 }: {
   flight: Flight;
-  tripType: string;
+  // tripType: string;
   formatDuration: (minutes: number) => string;
 }) => {
   const [toggleDetails, setToggleDetails] = useState(false);
