@@ -2,9 +2,8 @@ import React from 'react';
 
 const HotelSearch = () => {
     return (
-        <div className="p-6 rounded-lg shadow text-black">
-            <h2 className="text-xl font-semibold mb-4">Search Hotels</h2>
-            <p>Hotel search form goes here.</p>
+        <div className="p-6 ">
+            <h4 className="font-semibold mb-4">Coming soon</h4>
         </div>
     );
 };

@@ -5,6 +5,7 @@ import Button from '@/src/components/ui/Button';
 import loadArrow from '@/public/icons/load-arrow.svg';
 import Image from 'next/image';
 import plane from '@/public/icons/paper-plane.svg';
+import FiltersBar from './FiltersBar';
 
 const SearchResults = () => {
   const {
@@ -27,8 +28,11 @@ const SearchResults = () => {
   const noResults = !loading && directFlights.length === 0 && relatedFlights.length === 0;
 
   return (
-    <div className="w-full flex flex-col items-center pb-24">
-      <div className="w-[90%] 2xl:w-4/5 max-w-7xl mx-auto flex items-center justify-center">
+    <div className="w-full flex flex-col items-center pb-24 pt-32">
+      <div className="w-[90%] 2xl:w-4/5 max-w-7xl mx-auto flex flex-col items-center justify-center">
+        <div className='w-full bg-[#F5F3ED] rounded-xl  '>
+            <FiltersBar />
+        </div>
         <div className="w-full flex flex-col items-center">
           {loading ? (
             <span className="loader mt-32"></span>

@@ -94,13 +94,13 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
                 </div>
               </div>
             </div>
-            <p className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
+            <div className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
               <span className="capitalize">{flight?.carrier_name}</span>
               <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
               <span className="capitalize">{flight.cabin_class}</span>
               <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
               <span>Flight {flight.flight_number + Math.floor(Math.random() * 1000)}</span>
-            </p>
+            </div>
 
           </div>
 
@@ -173,13 +173,13 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
                   </div>
                 </div>
               </div>
-              <p className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
+              <div className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
                 <span className="capitalize">{flight?.carrier_name}</span>
                 <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
                 <span className="capitalize">{flight.cabin_class}</span>
                 <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
                 <span>Flight {flight.flight_number + Math.floor(Math.random() * 1000)}</span>
-              </p>
+              </div>
           </div>
 
             {/* Airline features  */}
@@ -252,13 +252,13 @@ const FlightDetails = ({ flight }: { flight: Flight }) => {
                   </div>
                 </div>
               </div>
-              <p className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
+              <div className="text-black/60 text-[11px] mt-6 ml-10 flex items-center">
                 <span className="capitalize">{flight?.carrier_name}</span>
                 <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
                 <span className="capitalize">{flight.cabin_class}</span>
                 <div className='w-2 h-[1px] bg-black/30 rounded-sm mx-2'></div>
                 <span>Flight {flight.flight_number + Math.floor(Math.random() * 1000)}</span>
-              </p>
+              </div>
           </div>
 
             {/* Airline features  */}
