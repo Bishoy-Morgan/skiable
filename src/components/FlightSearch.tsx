@@ -1,211 +1,262 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Dropdown from './ui/Dropdown';
 import TravellerDropdown from './ui/TravellerDropdown';
 import Input from './ui/Input';
-import AirportDropdown from './ui/AirportDropdown';
-import { Airport } from './ui/AirportDropdown';
+import AirportDropdown, { Airport } from './ui/AirportDropdown';
 import DateRangePicker from './ui/DateRangePicker';
 import Image from 'next/image';
-import arrow from '@/public/icons/arrow.svg'
-import explore from '@/public/icons/explore.svg'
+import arrow from '@/public/icons/arrow.svg';
+import explore from '@/public/icons/explore.svg';
 import { useRouter } from 'next/navigation';
 import Button from './ui/Button';
+import { FlightSearchParams } from '@/src/types/FlightSearchParams';
 
+type FlightSearchProps = {
+  searchAirports: (query: string) => Promise<Airport[]>;
+};
 
-const FlightSearch = () => {
+const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
   const router = useRouter();
-  const [travellerCounts, setTravellerCounts] = useState({
-    adults: 1,
-    children: 0,
-    infantsOnSeat: 0,
-    infantsOnLap: 0,
+
+  const [searchParams, setSearchParams] = useState<FlightSearchParams>({
+    travellerCounts: {
+      adults: 1,
+      children: 0,
+      infantsOnSeat: 0,
+      infantsOnLap: 0,
+    },
+    tripType: 'Round trip',
+    cabinClass: 'Economy',
+    whereFrom: '',
+    whereTo: '',
+    originFlight: null,
+    destinationFlight: null,
+    activeField: null,
+    range: null,
+    error: '',
   });
 
-  const [tripType, setTripType] = useState('Round trip');
-  const [cabinClass, setCabinClass] = useState('Economy');
+  const [fromQuery, setFromQuery] = useState('');
+  const [toQuery, setToQuery] = useState('');
   const [airports, setAirports] = useState<Airport[]>([]);
-  const [whereFrom, setWhereFrom] = useState<string>('');
-  const [whereTo, setWhereTo] = useState<string>('');
-  const [originFlight, setOriginFlight] = useState<{ originIATA: string }>();
-  const [destinationFlight, setDestinationFlight] = useState<{ destinationIATA: string}>();
-  const [activeField, setActiveField] = useState<'from' | 'to' | null>(null);
-  const [range, setRange] = useState<{ startDate: Date; endDate: Date } | null>(null);
-  const [query, setQuery] = useState('');
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-useEffect(() => {
-  if (!query) return;
+  const {
+    travellerCounts,
+    tripType,
+    cabinClass,
+    whereFrom,
+    whereTo,
+    activeField,
+    range,
+    error,
+  } = searchParams;
 
-  const fetchAirports = async () => {
-    try {
-      const res = await fetch(`/api/v1/airports?query=${encodeURIComponent(query)}`);
-      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-      const data = await res.json();
-      setAirports(data);
-    } catch (err) {
-      console.error(err);
+  // Debounced search with abort controller for cleanup
+  const debouncedSearch = useCallback(async (query: string) => {
+    if (!query || query.length < 2) {
+      setAirports([]);
+      return;
     }
+
+    setLoading(true);
+    try {
+      const results = await searchAirports(query);
+      setAirports(results);
+    } catch (error) {
+      console.error('Search error:', error);
+      setAirports([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [searchAirports]);
+
+  // Debounce search requests
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (activeField === 'from') {
+        debouncedSearch(fromQuery);
+      } else if (activeField === 'to') {
+        debouncedSearch(toQuery);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [fromQuery, toQuery, activeField, debouncedSearch]);
+
+  const handleWhereFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchParams((prev) => ({
+      ...prev,
+      whereFrom: value,
+      activeField: 'from',
+      originFlight: null,
+    }));
+    setFromQuery(value);
   };
 
-  fetchAirports();
-}, [query]);
+  const handleWhereTo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchParams((prev) => ({
+      ...prev,
+      whereTo: value,
+      activeField: 'to',
+      destinationFlight: null,
+    }));
+    setToQuery(value);
+  };
 
+  const handleAirportSelect = (airport: Airport) => {
+    if (activeField === 'from') {
+      setSearchParams((prev) => ({
+        ...prev,
+        originFlight: { originIATA: airport.IATA || '' },
+        whereFrom: `${airport.Name}, ${airport.City} (${airport.IATA})`,
+        activeField: null,
+      }));
+      setFromQuery('');
+    } else if (activeField === 'to') {
+      setSearchParams((prev) => ({
+        ...prev,
+        destinationFlight: { destinationIATA: airport.IATA || '' },
+        whereTo: `${airport.Name}, ${airport.City} (${airport.IATA})`,
+        activeField: null,
+      }));
+      setToQuery('');
+    }
+    setAirports([]);
+  };
 
-const handleWhereFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  setWhereFrom(value);
-  setQuery(value);
-  setActiveField('from');
-};
+  const handleInputBlur = () => {
+    setTimeout(() => {
+      setSearchParams((prev) => ({ ...prev, activeField: null }));
+      setAirports([]);
+    }, 200);
+  };
 
-const handleWhereTo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  setWhereTo(value);
-  setQuery(value);
-  setActiveField('to');
-};
+  const handleSearch = () => {
+    if (!searchParams.originFlight || !searchParams.destinationFlight || !searchParams.range) {
+      setSearchParams((prev) => ({
+        ...prev,
+        error: 'Please fill in all required fields.',
+      }));
+      return;
+    }
 
-const handleAirportSelect = (airport: Airport) => {
-  if (activeField === 'from') {
-    setOriginFlight({
-      originIATA: airport.IATA || '',
+    const { originIATA } = searchParams.originFlight;
+    const { destinationIATA } = searchParams.destinationFlight;
+    const { adults, children, infantsOnSeat, infantsOnLap } = searchParams.travellerCounts;
+
+    const startDateStr = new Date(searchParams.range.startDate).toISOString().split('T')[0];
+    const endDateStr = new Date(searchParams.range.endDate).toISOString().split('T')[0];
+
+    const queryParams = new URLSearchParams({
+      originIATA,
+      destinationIATA,
+      whereFrom: searchParams.whereFrom,
+      whereTo: searchParams.whereTo,
+      startDate: startDateStr,
+      endDate: endDateStr,
+      adults: adults.toString(),
+      children: children.toString(),
+      infantsOnSeat: infantsOnSeat.toString(),
+      infantsOnLap: infantsOnLap.toString(),
+      tripType: tripType.toLowerCase().replace(/\s/g, ''),
+      limit: '10',
+      skip: '0',
     });
-    setWhereFrom(`${airport.Name}, ${airport.City} (${airport.IATA})`);
-  } else if (activeField === 'to') {
-    setDestinationFlight({
-      destinationIATA: airport.IATA || '',
-    });
-    setWhereTo(`${airport.Name}, ${airport.City} (${airport.IATA})`);
-  }
-  setQuery('');
-  setAirports([]);
-};
 
-const handleSearch = () => {
-  if (!originFlight || !destinationFlight || !range) {
-    setError('Please fill in all required fields.');
-    return;
-  }
-
-  const startDateStr = new Date(range.startDate.setHours(0, 0, 0, 0)).toISOString(); 
-  const endDateStr = new Date(range.endDate.setHours(23, 59, 59, 999)).toISOString();
-
-  const queryParams = new URLSearchParams({
-    originIATA: originFlight.originIATA,
-    destinationIATA: destinationFlight.destinationIATA,
-    startDate: startDateStr,
-    endDate: endDateStr,
-  });
-
-  // Add tripType based on your logic
-  if (tripType === 'Round trip') {
-    queryParams.append('tripType', 'round');
-  } else if (tripType === 'One way') {
-    queryParams.append('tripType', 'oneway');
-  } else if (tripType === 'Multi-city') {
-    queryParams.append('tripType', 'multicity');
-  }
-
-  const limit = 10; 
-  const skip = 0;  
-
-  queryParams.append('limit', limit.toString());
-  queryParams.append('skip', skip.toString());
-
-  router.push(`/search-result?${queryParams.toString()}`);
-}
-
-
+    router.push(`/search-result?${queryParams.toString()}`);
+  };
 
   return (
     <div className="p-6 space-y-4">
       <div className="w-full flex items-center justify-between">
-        <div className='w-1/2 flex items-center space-x-2'>
+        <div className="w-1/2 flex items-center space-x-2">
           <Dropdown
-          options={['Round trip', 'One way', 'Multi-city']}
-          selected={tripType}
-          onChange={setTripType}
+            options={['Round trip', 'One way', 'Multi-city']}
+            selected={tripType}
+            onChange={(val) => setSearchParams((prev) => ({ ...prev, tripType: val }))}
           />
           <TravellerDropdown
             travellerCounts={travellerCounts}
-            setTravellerCounts={setTravellerCounts}
+            setTravellerCounts={(val) => setSearchParams((prev) => ({ ...prev, travellerCounts: val }))}
           />
           <Dropdown
             options={['Economy', 'Premium economy', 'Business', 'First']}
             selected={cabinClass}
-            onChange={setCabinClass}
+            onChange={(val) => setSearchParams((prev) => ({ ...prev, cabinClass: val }))}
             widthClass="w-52"
           />
         </div>
-        <div className='w-1/2 flex items-center justify-end'>
+        <div className="w-1/2 flex items-center justify-end">
           {range && (
             <div className="flex items-center space-x-1.5 text-sm text-[#050801]">
-                <span className='text-[#050801]'>
-                  You selected:
-                </span>
-                <span className='ml-2'>
-                  {range.startDate.toDateString()} 
-                </span>
-                <Image
-                src={arrow}
-                alt="arrow"
-                width={22}
-                height={22}
-                />
-                <span>
-                  {range.endDate.toDateString()}
-                </span>
+              <span>You selected:</span>
+              <span className="ml-2">{range.startDate.toDateString()}</span>
+              <Image src={arrow} alt="arrow" width={22} height={22} />
+              <span>{range.endDate.toDateString()}</span>
             </div>
           )}
         </div>
       </div>
-      <div className="w-full flex items-center gap-x-4 my-6  ">
-        {/* Where from? Airports or city  */}
-        <div className='relative w-1/3 flex flex-col space-y-4  '>
+
+      <div className="w-full flex items-center gap-x-4 my-6">
+        <div className="relative w-1/3 flex flex-col space-y-4">
           <Input
             name="whereFrom"
             placeholder="Airport or City"
             value={whereFrom}
             onChange={handleWhereFrom}
+            onBlur={handleInputBlur}
             error={error}
-            className='relative'
           />
-          {activeField === 'from' && query && airports.length > 0 && (
-            <AirportDropdown
-              airports={airports}
-              onSelectAirport={handleAirportSelect}
-            />
+          {activeField === 'from' && (
+            <>
+              {loading && (
+                <div className="absolute top-full left-0 bg-white border rounded shadow-lg p-3 text-sm text-gray-500 z-10">
+                  Searching airports...
+                </div>
+              )}
+              {!loading && airports.length > 0 && (
+                <AirportDropdown airports={airports} onSelectAirport={handleAirportSelect} />
+              )}
+            </>
           )}
         </div>
-        {/* Where to? Airports or city  */}
-        <div className='relative w-1/3 flex flex-col space-y-4 '>
+
+        <div className="relative w-1/3 flex flex-col space-y-4">
           <Input
             name="whereTo"
             placeholder="Where to?"
             value={whereTo}
             onChange={handleWhereTo}
+            onBlur={handleInputBlur}
             error={error}
-            className='relative'
           />
-          {activeField === 'to' && query && airports.length > 0 && (
-            <AirportDropdown
-              airports={airports}
-              onSelectAirport={handleAirportSelect}
-            />
+          {activeField === 'to' && (
+            <>
+              {loading && (
+                <div className="absolute top-full left-0 bg-white border rounded shadow-lg p-3 text-sm text-gray-500 z-10">
+                  Searching airports...
+                </div>
+              )}
+              {!loading && airports.length > 0 && (
+                <AirportDropdown airports={airports} onSelectAirport={handleAirportSelect} />
+              )}
+            </>
           )}
         </div>
-        <div className='w-1/3 flex flex-col space-y-4 '>
-          <DateRangePicker onSelectRange={(r) => setRange(r)} />
+
+        <div className="w-1/3 flex flex-col space-y-4">
+          <DateRangePicker onSelectRange={(r) => setSearchParams((prev) => ({ ...prev, range: r }))} />
         </div>
       </div>
+
       <div className="flex justify-center mt-10">
-        <Button
-          iconSrc={explore}
-          iconAlt="Explore"
-          onClick={handleSearch}
-        >
+        <Button iconSrc={explore} iconAlt="Explore" onClick={handleSearch}>
           Explore
         </Button>
       </div>

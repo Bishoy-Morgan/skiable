@@ -6,8 +6,8 @@ import country from '@/public/icons/country.svg'
 export interface Airport {
     AirportID: number;
     Name: string;
-    City: number;
-    Country: number;  
+    City: string;
+    Country: string;  
     IATA: string;
     ICAO: string;
     TzDatabaseTimeZone: string;

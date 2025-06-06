@@ -11,6 +11,7 @@ type InputProps = {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     type?: string;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
     error?: string;
     className?: string;
 };
@@ -21,6 +22,7 @@ const Input: React.FC<InputProps> = ({
     value,
     onChange,
     type = 'text',
+    onBlur,
     error,
     className = '',
 }) => {
@@ -42,6 +44,7 @@ const Input: React.FC<InputProps> = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
+                onBlur={onBlur}
                 required
                 className={`w-full px-4 py-4 pl-12 outline-none bg-[#fffefc] rounded-xl placeholder:text-black/50 text-black text-base placeholder:text-base transition duration-150 ease-in-out 
                 ${error ? 'border-red-500' : ''} focus:-translate-y-0.5 focus:shadow-xl`}

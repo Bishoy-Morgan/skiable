@@ -66,8 +66,9 @@ export default function DateRangePicker({ onSelectRange }: Props) {
       const isInRange =
         startDate &&
         endDate &&
-        thisDate >= new Date(startDate.setHours(0, 0, 0, 0)) &&
-        thisDate <= new Date(endDate.setHours(0, 0, 0, 0));
+        thisDate >= new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()) &&
+        thisDate <= new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+
 
       const isSelected =
         startDate?.toDateString() === thisDate.toDateString() ||

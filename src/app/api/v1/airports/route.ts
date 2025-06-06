@@ -16,13 +16,21 @@ export async function GET(req: NextRequest) {
             IATA: { $ne: "" },
         };
 
-        if (query) {
-        airportFilter.$or = [
-            { Name: { $regex: query, $options: "i" } },     // Airport name
-            { City: { $regex: query, $options: "i" } },     // City
-            { Country: { $regex: query, $options: "i" } },  // Country
-        ];
+        function escapeRegex(string: string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         }
+
+
+        if (query) {
+            const safeQuery = escapeRegex(query);
+            airportFilter.$or = [
+                { Name: { $regex: `.*${safeQuery}.*`, $options: "i" } },
+                { City: { $regex: `.*${safeQuery}.*`, $options: "i" } },
+                { Country: { $regex: `.*${safeQuery}.*`, $options: "i" } },
+            ];
+        }
+
+
 
         const airports = await db
             .collection("airports")

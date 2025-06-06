@@ -1,19 +1,52 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import TabSelector from './ui/TabSelector';
 import FlightSearch from './FlightSearch';
 import HotelSearch from './HotelSearch';
 import CarSearch from './CarSearch';
-
+import { Airport } from './ui/AirportDropdown';
 
 const SearchContainer = () => {
     const [activeTab, setActiveTab] = useState<'flight' | 'hotels' | 'car'>('flight');
+    const [searchCache, setSearchCache] = useState<Record<string, Airport[]>>({});
+    
+    const searchAirports = useCallback(async (query: string): Promise<Airport[]> => {
+        if (!query || query.length < 2) return [];
+        
+        const cacheKey = query.toLowerCase();
+        
+        if (searchCache[cacheKey]) {
+            return searchCache[cacheKey];
+        }
+        
+        try {
+            const res = await fetch(`/api/v1/airports?query=${encodeURIComponent(query)}&limit=8`);
+            if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+            
+            const data = await res.json();
+            
+            // Cache the results
+            setSearchCache(prev => ({
+                ...prev,
+                [cacheKey]: data,
+                // Keep cache size manageable (last 20 searches)
+                ...Object.keys(prev).length > 20 && {
+                    [Object.keys(prev)[0]]: undefined
+                }
+            }));
+            
+            return data;
+        } catch (err) {
+            console.error('Airport search error:', err);
+            return [];
+        }
+    }, [searchCache]);
 
     const renderTabContent = () => {
         switch (activeTab) {
             case 'flight':
-                return <FlightSearch />;
+                return <FlightSearch searchAirports={searchAirports} />;
             case 'hotels':
                 return <HotelSearch />;
             case 'car':
@@ -24,10 +57,10 @@ const SearchContainer = () => {
     };
 
     return (
-        <div className="relative w-full pt-40 pb-20 flex flex-col items-center justify-center  ">
-            <div className="w-[90%] 2xl:w-4/5 rounded-xl max-w-7xl mx-auto ">
+        <div className="relative w-full pt-40 pb-20 flex flex-col items-center justify-center">
+            <div className="w-[90%] 2xl:w-4/5 rounded-xl max-w-7xl mx-auto">
                 <TabSelector activeTab={activeTab} onSelect={setActiveTab} />
-                <div className="w-full p-6 rounded-b-xl bg-[#F5F3ED]  ">
+                <div className="w-full p-6 rounded-b-xl bg-[#F5F3ED]">
                     {renderTabContent()}
                 </div>
             </div>
@@ -36,4 +69,3 @@ const SearchContainer = () => {
 };
 
 export default SearchContainer;
-
