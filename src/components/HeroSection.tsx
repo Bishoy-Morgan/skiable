@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import longArrow from '@/public/icons/long-arrow.svg'
-// import Navbar from './Navbar'
 import planeGirl from '@/public/images/hero/plane-girl.jpg'
 import planeWindow from '@/public/images/hero/plane-window.jpg'
 import flightPlane from '@/public/images/hero/flight-plane.jpg'
@@ -20,18 +19,16 @@ const HeroSection: React.FC = () => {
     ];
 
     const handleSearch = () => {
-        // Implement search functionality here
         console.log('Search button clicked');
     };
 
     return (
         <section className='relative w-full h-auto flex flex-col items-center justify-center bg-[#F5F3ED] '>
-            {/* <Navbar /> */}
-            <div className='relative z-20 w-[90%] 2xl:w-4/5 mt-[10%] flex flex-col justify-center items-center  '>
-                <h1 className='font-semibold tracking-tighter max-w-md'>
+            <div className='relative z-20 w-[90%] 2xl:w-4/5 mt-[35%] lg:mt-[10%] flex flex-col justify-center items-center  '>
+                <h1 className='font-semibold tracking-tighter max-w-2xs lg:max-w-md text-center '>
                     The Sky&apos;s is not the limit
                 </h1>
-                <p className='main-para my-10 font-medium text-center max-w-xl '>
+                <p className='main-para my-10 font-medium text-center max-w-sm lg:max-w-xl '>
                     Easily explore and book the most affordable flights across the globe anytime, anywhere, with confidence.
                 </p>
                 <Button
@@ -41,8 +38,8 @@ const HeroSection: React.FC = () => {
                 >
                     Best offers
                 </Button>
-
-                <div className='w-full h-64 2xl:h-72 flex justify-center items-center mt-8 2xl:mt-16 max-w-6xl 2xl:max-w-7xl '>
+                {/* Desktop Hero Images  */}
+                <div className='hidden w-full h-64 2xl:h-72 lg:flex justify-center items-center mt-8 2xl:mt-16 max-w-6xl 2xl:max-w-7xl '>
                     {heroImages.map((image) => (
                         <div
                             key={image.id}
@@ -61,8 +58,51 @@ const HeroSection: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <div className='w-full py-8 flex justify-center items-center max-w-4xl 2xl:max-w-5xl'>
-                    <div className='px-12 2xl:px-16 py-10 flex flex-col justify-start items-start gap-y-5 border-r border-black/20'>
+                {/* Mobile hero Images  */} 
+                <div className='lg:hidden w-full h-56 flex flex-col justify-center items-center mt-16 '>
+                    {/* First row: 3 images */}
+                    <div className="flex w-full h-full justify-center">
+                        {heroImages.slice(0, 3).map((image) => (
+                            <div
+                                key={image.id}
+                                className={`w-1/3 h-full flex justify-center items-center transition-all duration-300 ease-in-out ${image.rotation} ${image.translate}`}
+                            >
+                                <Image
+                                    src={image.src}
+                                    alt={`Hero Image ${image.id}`}
+                                    width={1.2 * 400}
+                                    height={400}
+                                    priority
+                                    quality={100}
+                                    objectFit='cover'
+                                    className='h-full object-cover rounded-2xl shadow-2xl '
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    {/* Second row: 2 images */}
+                    <div className="flex w-full h-full justify-center">
+                        {heroImages.slice(3).map((image) => (
+                            <div
+                                key={image.id}
+                                className={`w-1/3 h-full flex justify-center items-center transition-all duration-300 ease-in-out ${image.rotation} ${image.translate}`}
+                            >
+                                <Image
+                                    src={image.src}
+                                    alt={`Hero Image ${image.id}`}
+                                    width={1.2 * 400}
+                                    height={400}
+                                    priority
+                                    quality={100}
+                                    objectFit='cover'
+                                    className='h-full object-cover rounded-2xl shadow-2xl '
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='w-full py-8 flex flex-col lg:flex-row justify-center items-center max-w-4xl 2xl:max-w-5xl'>
+                    <div className='px-8 lg:px-12 2xl:px-16 py-10 flex flex-col justify-start items-start gap-y-5 border-b border-r-0 lg:border-b-0 lg:border-r border-black/20'>
                         <h3 className='font-semibold'>
                             Your personal travel assistant fully automated.
                         </h3>
@@ -70,7 +110,7 @@ const HeroSection: React.FC = () => {
                             Skiable handles your entire flight search process. Discover, filter, and book the best flights effortlessly with smart technology that understands your travel needs, beyond dates and destinations.
                         </p>
                     </div>
-                    <div className='px-12 py-16 flex flex-col justify-start items-start gap-y-5 '>
+                    <div className='px-8 lg:px-12 py-16 flex flex-col justify-start items-start gap-y-5 '>
                         <h3 className='font-semibold text-left'>
                             Book smarter Fly faster<br/>Save more.
                         </h3>

@@ -172,9 +172,9 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
   };
 
   return (
-    <div className="p-6 space-y-4">
-      <div className="w-full flex items-center justify-between">
-        <div className="w-1/2 flex items-center space-x-2">
+    <div className="px-2 py-6 lg:px-6 space-y-4">
+      <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-between">
+        <div className="w-1/2 flex flex-col lg:flex-row items-start lg:items-center space-y-4 lg:space-y-0 lg:space-x-2">
           <Dropdown
             options={['Round trip', 'One way', 'Multi-city']}
             selected={tripType}
@@ -203,8 +203,8 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
         </div>
       </div>
 
-      <div className="w-full flex items-center gap-x-4 my-6">
-        <div className="relative w-1/3 flex flex-col space-y-4">
+      <div className="w-full flex flex-col lg:flex-row items-center gap-y-6 lg:gap-y-0 lg:gap-x-4 my-6">
+        <div className="relative w-full lg:w-1/3 flex flex-col space-y-4">
           <Input
             name="whereFrom"
             placeholder="Airport or City"
@@ -227,7 +227,7 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
           )}
         </div>
 
-        <div className="relative w-1/3 flex flex-col space-y-4">
+        <div className="relative w-full lg:w-1/3 flex flex-col space-y-4">
           <Input
             name="whereTo"
             placeholder="Where to?"
@@ -250,7 +250,7 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
           )}
         </div>
 
-        <div className="w-1/3 flex flex-col space-y-4">
+        <div className="w-full lg:w-1/3 flex flex-col space-y-4">
           <DateRangePicker onSelectRange={(r) => setSearchParams((prev) => ({ ...prev, range: r }))} />
         </div>
       </div>

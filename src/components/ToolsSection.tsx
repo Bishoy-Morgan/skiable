@@ -7,12 +7,12 @@ import ticket from '@/public/icons/ticket.svg'
 const ToolsSections = () => {
     return (
         <div className='relative w-full flex items-center justify-center py-16 '>
-            <div className="w-[90%] 2xl:w-4/5 rounded-xl bg-[#F5F3ED] p-24 max-w-[100rem] ">
+            <div className="w-[90%] 2xl:w-4/5 rounded-xl bg-[#F5F3ED] p-4 lg:p-24 max-w-[100rem] ">
                 <h2 className="mb-16 max-w-lg ">
                     Useful tools to help you find the best deals
                 </h2>
-                <div className='w-full flex items-start justify-between gap-x-[5%]'>
-                    <div className="w-[45%] flex flex-col gap-6 mb-8">
+                <div className='w-full flex flex-col lg:flex-row items-start justify-between lg:gap-x-[5%]'>
+                    <div className="w-full lg:w-[45%] flex flex-col gap-6 mb-8">
                         <div className="bg-[#fffefc] shadow-lg p-10 rounded-xl flex items-start gap-x-8 ">
                             <Image src={day} alt='Day to fly' width={60} height={60} className='p-3 rounded-xl bg-black shadow-xl' />
                             <div>
@@ -50,7 +50,7 @@ const ToolsSections = () => {
                         </div>
                     </div>
 
-                    <div className="w-1/2 px-4 rounded-xl ">
+                    <div className="w-full lg:w-1/2 px-4 rounded-xl ">
                         <h2 className=" text-black mb-4">
                             Insightful tools help you choose your trip dates
                         </h2>

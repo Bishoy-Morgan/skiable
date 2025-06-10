@@ -46,7 +46,7 @@ const Faqs: React.FC = () => {
   };
 
   return (
-    <section className="w-[90%] 2xl:w-4/5 mx-auto py-12">
+    <section className="w-[90%] mx-auto py-12 max-w-[1920px]">
       <h2 className="mb-10 text-black max-w-3xl">
         Frequently Asked Questions
       </h2>

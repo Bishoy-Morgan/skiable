@@ -6,11 +6,11 @@ import Button from './ui/Button';
 
 const Footer = () => {
   return (
-    <footer className="w-[90%] 2xl:w-4/5 mx-auto flex items-center justify-center text-[#fffefc] rounded-xl my-12 bg-black py-8 ">
-      <div className="w-full flex flex-col items-center justify-center text-center max-w-7xl  ">
-        <div className='w-full flex items-center justify-center'>
-          <div className='w-1/2 flex flex-col items-start justify-center px-16 py-10'>
-            <div className='flex items-center space-x-2 mb-8'>
+    <footer className="w-[90%] mx-auto flex items-center justify-center text-[#fffefc] rounded-xl my-12 bg-black py-8 max-w-[1920px]">
+      <div className="w-full flex flex-col items-center justify-center text-center   ">
+        <div className='w-full flex flex-col lg:flex-row items-center justify-center'>
+          <div className='w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center lg:justify-end lg:px-16 py-10'>
+            <div className='flex items-center space-x-2 lg:mb-8'>
                 <Image
                     src={logo}
                     alt='Logo'
@@ -21,29 +21,17 @@ const Footer = () => {
                     className='object-cover'
                 />
                 <span className='text-2xl text-[#FDC830] font-extrabold'>
-                    Ski<span>able</span>
+                    Skiable
                 </span>
             </div>
-            <h4 className="text-3xl font-bold mb-4 max-w-sm text-left">Join the Skiable Community</h4>
-            <p className="para-14 mb-8 max-w-52 text-left">Stay updated with the latest news and offers.</p>
+            <h4 className="text-3xl font-bold mb-4 max-w-sm text-center lg:text-left">Join the Skiable Community</h4>
+            <p className="para-14 mb-8 max-w-52 text-center lg:text-left">Stay updated with the latest news and offers.</p>
           </div>
-          <div className='w-1/2 flex items-start justify-end px-16 py-10'>
-            {/* <button className='white-btn flex items-center gap-x-4'>
-                <Image 
-                src={longArrow}
-                alt='Arrow Right'
-                width={30}
-                height={30}
-                className='p-1 rounded-lg bg-black '
-                />
-                <span>
-                    Available Offeres
-                </span>
-            </button> */}
+          <div className='w-full lg:w-1/2 flex justify-center lg:justify-end lg:px-16 py-10 '>
             <Button
             iconSrc={longArrow}
             iconAlt="Long Arrow"
-            className='border border-[#fffefc]'
+            className='border border-[#fffefc] '
             >
               Available Offers
             </Button>

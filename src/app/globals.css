@@ -48,7 +48,7 @@ h3 {
   line-height: clamp(1.25rem, 0.9vw + 0.5rem, 1.4rem); /* approx 20px */
 }
 
- @media (width >= 96rem /* 1536px */) {
+@media (width >= 96rem /* 1536px */) {
   h2 {
       font-size: clamp(2.75rem, 5vw + 1rem, 3.75rem); /* max 3.75rem = 60px */
       line-height: clamp(3rem, 5vw + 1rem, 4.125rem); /* max 4.125rem ≈ 66px */
@@ -62,6 +62,26 @@ h3 {
     line-height: clamp(1.5rem, 1.7vw + 0.5rem, 1.5625rem); /* ~24px to 25px */
   }
 }
+
+@media (width <= 48rem /* 768px */) {
+  h1 {
+    font-size: clamp(2.75rem, 6vw, 2.75rem);   /* 44px = 2.75rem */
+    line-height: clamp(3rem, 7vw, 3rem);       /* 48px = 3rem */
+  }
+  h2 {
+    font-size: clamp(2rem, 4vw, 2rem);        /* 2rem = 32px */
+    line-height: clamp(2.1875rem, 4vw, 2.1875rem); /* 2.1875rem = 35px */
+  }
+  h3 {
+    font-size: clamp(1.375rem, 2vw, 1.375rem);      /* 1.375rem = 22px */
+    line-height: clamp(1.625rem, 2vw, 1.625rem);    /* 1.625rem = 26px */
+  }
+  .main-para {
+    font-size: clamp(1rem, 1vw, 1rem);       /* 1rem = 16px */
+    line-height: clamp(1.375rem, 2vw, 1.375rem); /* 1.375rem = 22px */
+  }
+}
+
 
 .loader {
     width: 70px;
