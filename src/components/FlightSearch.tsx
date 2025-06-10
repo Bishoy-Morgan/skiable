@@ -1,17 +1,19 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { FlightSearchParams } from '@/src/types/FlightSearchParams';
+import AirportDropdown, { Airport } from './ui/AirportDropdown';
+import Input from './ui/Input';
 import Dropdown from './ui/Dropdown';
 import TravellerDropdown from './ui/TravellerDropdown';
-import Input from './ui/Input';
-import AirportDropdown, { Airport } from './ui/AirportDropdown';
 import DateRangePicker from './ui/DateRangePicker';
-import Image from 'next/image';
 import arrow from '@/public/icons/arrow.svg';
 import explore from '@/public/icons/explore.svg';
-import { useRouter } from 'next/navigation';
 import Button from './ui/Button';
-import { FlightSearchParams } from '@/src/types/FlightSearchParams';
 
 type FlightSearchProps = {
   searchAirports: (query: string) => Promise<Airport[]>;
@@ -171,8 +173,19 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
     router.push(`/search-result?${queryParams.toString()}`);
   };
 
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.15,
+  });
+
   return (
-    <div className="px-2 py-6 lg:px-6 space-y-4">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className="px-2 py-6 lg:px-6 space-y-4"
+    >
       <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-between">
         <div className="w-1/2 flex flex-col lg:flex-row items-start lg:items-center space-y-4 lg:space-y-0 lg:space-x-2">
           <Dropdown
@@ -204,7 +217,12 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
       </div>
 
       <div className="w-full flex flex-col lg:flex-row items-center gap-y-6 lg:gap-y-0 lg:gap-x-4 my-6">
-        <div className="relative w-full lg:w-1/3 flex flex-col space-y-4">
+        <motion.div
+          className="relative w-full lg:w-1/3 flex flex-col space-y-4"
+          initial={{ opacity: 0, x: -30 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+        >
           <Input
             name="whereFrom"
             placeholder="Airport or City"
@@ -225,9 +243,14 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
               )}
             </>
           )}
-        </div>
+        </motion.div>
 
-        <div className="relative w-full lg:w-1/3 flex flex-col space-y-4">
+        <motion.div
+          className="relative w-full lg:w-1/3 flex flex-col space-y-4"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
+        >
           <Input
             name="whereTo"
             placeholder="Where to?"
@@ -248,11 +271,16 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
               )}
             </>
           )}
-        </div>
+        </motion.div>
 
-        <div className="w-full lg:w-1/3 flex flex-col space-y-4">
+        <motion.div
+          className="w-full lg:w-1/3 flex flex-col space-y-4"
+          initial={{ opacity: 0, x: 30 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.5, ease: 'easeOut' }}
+        >
           <DateRangePicker onSelectRange={(r) => setSearchParams((prev) => ({ ...prev, range: r }))} />
-        </div>
+        </motion.div>
       </div>
 
       <div className="flex justify-center mt-10">
@@ -260,7 +288,7 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ searchAirports }) => {
           Explore
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

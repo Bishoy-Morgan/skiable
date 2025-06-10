@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react';
+import { motion } from 'framer-motion'; // Add this import
 import TabSelector from './ui/TabSelector';
 import FlightSearch from './FlightSearch';
 import HotelSearch from './HotelSearch';
@@ -57,14 +58,20 @@ const SearchContainer = () => {
     };
 
     return (
-        <div className="relative w-full pt-40 pb-20 flex flex-col items-center justify-center">
+        <motion.div
+            className="relative w-full pt-10 lg:pt-40 pb-20 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            viewport={{ once: true, amount: 0.5 }}
+        >
             <div className="w-[90%] 2xl:w-4/5 rounded-xl max-w-7xl mx-auto">
                 <TabSelector activeTab={activeTab} onSelect={setActiveTab} />
                 <div className="w-full p-6 rounded-b-xl bg-[#F5F3ED]">
                     {renderTabContent()}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

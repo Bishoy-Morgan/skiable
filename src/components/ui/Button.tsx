@@ -8,6 +8,7 @@ type ButtonProps = {
     children: ReactNode
     className?: string
     disabled?: boolean
+    type?: string
 }
 
 const Button: React.FC<ButtonProps> = ({

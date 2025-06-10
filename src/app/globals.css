@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import 'leaflet/dist/leaflet.css';
 
 /* Default light theme */
 :root {
@@ -37,6 +36,13 @@ h3 {
   font-size: clamp(20px, 2.2vw, 24px);
   line-height: clamp(26px, 3vw, 29px);
 }
+
+.tools-para {
+  font-size: clamp(2rem, 3vw, 2.5rem);   /* ~32px to 40px */
+  line-height: clamp(2.4rem, 3.5vw, 2.9rem); /* ~38px to 46px */
+  font-weight: 600;
+}
+
 
 .main-para {
   font-size: clamp(1.125rem, 1.2vw + 0.5rem, 1.25rem); /* scales between ~18px and 20px */
